@@ -8,14 +8,26 @@ Please see LICENSE files in the repository root for full details.
 
 import { Locator, type Page } from "@playwright/test";
 
-import { test as base, expect, Fixtures } from "../../element-web-test";
+import { test, expect } from "../../element-web-test";
 import { viewRoomSummaryByName } from "../right-panel/utils";
 import { isDendrite } from "../../plugins/homeserver/dendrite";
+import { completeCreateSecretStorageDialog, createBot, logIntoElement } from "./utils.ts";
+import { Client } from "../../pages/client.ts";
 
-const test = base.extend<Fixtures>({
-    // eslint-disable-next-line no-empty-pattern
-    startHomeserverOpts: async ({}, use) => {
-        await use("dehydration");
+const ROOM_NAME = "Test room";
+const NAME = "Alice";
+
+function getMemberTileByName(page: Page, name: string): Locator {
+    return page.locator(`.mx_MemberTileView, [title="${name}"]`);
+}
+
+test.use({
+    displayName: NAME,
+    synapseConfig: {
+        experimental_features: {
+            msc2697_enabled: false,
+            msc3814_enabled: true,
+        },
     },
     config: async ({ config, context }, use) => {
         const wellKnown = {
@@ -31,21 +43,10 @@ const test = base.extend<Fixtures>({
     },
 });
 
-const ROOM_NAME = "Test room";
-const NAME = "Alice";
-
-function getMemberTileByName(page: Page, name: string): Locator {
-    return page.locator(`.mx_EntityTile, [title="${name}"]`);
-}
-
 test.describe("Dehydration", () => {
     test.skip(isDendrite, "does not yet support dehydration v2");
 
-    test.use({
-        displayName: NAME,
-    });
-
-    test("Create dehydrated device", async ({ page, user, app }, workerInfo) => {
+    test("'Set up secure backup' creates dehydrated device", async ({ page, user, app }, workerInfo) => {
         // Create a backup (which will create SSSS, and dehydrated device)
 
         const securityTab = await app.settings.openUserSettings("Security & Privacy");
@@ -54,17 +55,7 @@ test.describe("Dehydration", () => {
         await expect(securityTab.getByText("Offline device enabled")).not.toBeVisible();
         await securityTab.getByRole("button", { name: "Set up", exact: true }).click();
 
-        const currentDialogLocator = page.locator(".mx_Dialog");
-
-        // It's the first time and secure storage is not set up, so it will create one
-        await expect(currentDialogLocator.getByRole("heading", { name: "Set up Secure Backup" })).toBeVisible();
-        await currentDialogLocator.getByRole("button", { name: "Continue", exact: true }).click();
-        await expect(currentDialogLocator.getByRole("heading", { name: "Save your Security Key" })).toBeVisible();
-        await currentDialogLocator.getByRole("button", { name: "Copy", exact: true }).click();
-        await currentDialogLocator.getByRole("button", { name: "Continue", exact: true }).click();
-
-        await expect(currentDialogLocator.getByRole("heading", { name: "Secure Backup successful" })).toBeVisible();
-        await currentDialogLocator.getByRole("button", { name: "Done", exact: true }).click();
+        await completeCreateSecretStorageDialog(page);
 
         // Open the settings again
         await app.settings.openUserSettings("Security & Privacy");
@@ -89,7 +80,7 @@ test.describe("Dehydration", () => {
         await viewRoomSummaryByName(page, app, ROOM_NAME);
 
         await page.locator(".mx_RightPanel").getByRole("menuitem", { name: "People" }).click();
-        await expect(page.locator(".mx_MemberList")).toBeVisible();
+        await expect(page.locator(".mx_MemberListView")).toBeVisible();
 
         await getMemberTileByName(page, NAME).click();
         await page.locator(".mx_UserInfo_devices .mx_UserInfo_expand").click();
@@ -97,4 +88,49 @@ test.describe("Dehydration", () => {
         await expect(page.locator(".mx_UserInfo_devices").getByText("Offline device enabled")).toBeVisible();
         await expect(page.locator(".mx_UserInfo_devices").getByText("Dehydrated device")).not.toBeVisible();
     });
+
+    test("Reset recovery key during login re-creates dehydrated device", async ({
+        page,
+        homeserver,
+        app,
+        credentials,
+    }) => {
+        // Set up cross-signing and recovery
+        const { botClient } = await createBot(page, homeserver, credentials);
+        // ... and dehydration
+        await botClient.evaluate(async (client) => await client.getCrypto().startDehydration());
+
+        const initialDehydratedDeviceIds = await getDehydratedDeviceIds(botClient);
+        expect(initialDehydratedDeviceIds.length).toBe(1);
+
+        await botClient.evaluate(async (client) => client.stopClient());
+
+        // Log in our client
+        await logIntoElement(page, credentials);
+
+        // Oh no, we forgot our recovery key
+        await page.locator(".mx_AuthPage").getByRole("button", { name: "Reset all" }).click();
+        await page.locator(".mx_AuthPage").getByRole("button", { name: "Proceed with reset" }).click();
+
+        await completeCreateSecretStorageDialog(page, { accountPassword: credentials.password });
+
+        // There should be a brand new dehydrated device
+        const dehydratedDeviceIds = await getDehydratedDeviceIds(app.client);
+        expect(dehydratedDeviceIds.length).toBe(1);
+        expect(dehydratedDeviceIds[0]).not.toEqual(initialDehydratedDeviceIds[0]);
+    });
 });
+
+async function getDehydratedDeviceIds(client: Client): Promise<string[]> {
+    return await client.evaluate(async (client) => {
+        const userId = client.getUserId();
+        const devices = await client.getCrypto().getUserDeviceInfo([userId]);
+        return Array.from(
+            devices
+                .get(userId)
+                .values()
+                .filter((d) => d.dehydrated)
+                .map((d) => d.deviceId),
+        );
+    });
+}

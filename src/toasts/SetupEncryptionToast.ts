@@ -16,6 +16,10 @@ import GenericToast from "../components/views/toasts/GenericToast";
 import { ModuleRunner } from "../modules/ModuleRunner";
 import { SetupEncryptionStore } from "../stores/SetupEncryptionStore";
 import Spinner from "../components/views/elements/Spinner";
+import { OpenToTabPayload } from "../dispatcher/payloads/OpenToTabPayload";
+import { Action } from "../dispatcher/actions";
+import { UserTab } from "../components/views/dialogs/UserTab";
+import defaultDispatcher from "../dispatcher/dispatcher";
 
 const TOAST_KEY = "setupencryption";
 
@@ -27,6 +31,8 @@ const getTitle = (kind: Kind): string => {
             return _t("encryption|set_up_recovery");
         case Kind.VERIFY_THIS_SESSION:
             return _t("encryption|verify_toast_title");
+        case Kind.KEY_STORAGE_OUT_OF_SYNC:
+            return _t("encryption|key_storage_out_of_sync");
     }
 };
 
@@ -37,6 +43,7 @@ const getIcon = (kind: Kind): string | undefined => {
         case Kind.SET_UP_RECOVERY:
             return undefined;
         case Kind.VERIFY_THIS_SESSION:
+        case Kind.KEY_STORAGE_OUT_OF_SYNC:
             return "verification_warning";
     }
 };
@@ -49,6 +56,8 @@ const getSetupCaption = (kind: Kind): string => {
             return _t("action|continue");
         case Kind.VERIFY_THIS_SESSION:
             return _t("action|verify");
+        case Kind.KEY_STORAGE_OUT_OF_SYNC:
+            return _t("encryption|enter_recovery_key");
     }
 };
 
@@ -59,6 +68,8 @@ const getSecondaryButtonLabel = (kind: Kind): string => {
         case Kind.SET_UP_ENCRYPTION:
         case Kind.VERIFY_THIS_SESSION:
             return _t("encryption|verification|unverified_sessions_toast_reject");
+        case Kind.KEY_STORAGE_OUT_OF_SYNC:
+            return _t("encryption|forgot_recovery_key");
     }
 };
 
@@ -70,6 +81,8 @@ const getDescription = (kind: Kind): string => {
             return _t("encryption|set_up_recovery_toast_description");
         case Kind.VERIFY_THIS_SESSION:
             return _t("encryption|verify_toast_description");
+        case Kind.KEY_STORAGE_OUT_OF_SYNC:
+            return _t("encryption|key_storage_out_of_sync_description");
     }
 };
 
@@ -89,11 +102,11 @@ export enum Kind {
      * Prompt the user to verify this session
      */
     VERIFY_THIS_SESSION = "verify_this_session",
+    /**
+     * Prompt the user to enter their recovery key
+     */
+    KEY_STORAGE_OUT_OF_SYNC = "key_storage_out_of_sync",
 }
-
-const onReject = (): void => {
-    DeviceListener.sharedInstance().dismissEncryptionSetup();
-};
 
 /**
  * Show a toast prompting the user for some action related to setting up their encryption.
@@ -110,7 +123,7 @@ export const showToast = (kind: Kind): void => {
         return;
     }
 
-    const onAccept = async (): Promise<void> => {
+    const onPrimaryClick = async (): Promise<void> => {
         if (kind === Kind.VERIFY_THIS_SESSION) {
             Modal.createDialog(SetupEncryptionDialog, {}, undefined, /* priority = */ false, /* static = */ true);
         } else {
@@ -129,6 +142,19 @@ export const showToast = (kind: Kind): void => {
         }
     };
 
+    const onSecondaryClick = (): void => {
+        if (kind === Kind.KEY_STORAGE_OUT_OF_SYNC) {
+            const payload: OpenToTabPayload = {
+                action: Action.ViewUserSettings,
+                initialTabId: UserTab.Encryption,
+                props: { showResetIdentity: true },
+            };
+            defaultDispatcher.dispatch(payload);
+        } else {
+            DeviceListener.sharedInstance().dismissEncryptionSetup();
+        }
+    };
+
     ToastStore.sharedInstance().addOrReplaceToast({
         key: TOAST_KEY,
         title: getTitle(kind),
@@ -136,9 +162,10 @@ export const showToast = (kind: Kind): void => {
         props: {
             description: getDescription(kind),
             primaryLabel: getSetupCaption(kind),
-            onPrimaryClick: onAccept,
+            onPrimaryClick,
             secondaryLabel: getSecondaryButtonLabel(kind),
-            onSecondaryClick: onReject,
+            onSecondaryClick,
+            overrideWidth: kind === Kind.KEY_STORAGE_OUT_OF_SYNC ? "366px" : undefined,
         },
         component: GenericToast,
         priority: kind === Kind.VERIFY_THIS_SESSION ? 95 : 40,

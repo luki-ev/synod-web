@@ -6,27 +6,39 @@ SPDX-License-Identifier: AGPL-3.0-only OR GPL-3.0-only OR LicenseRef-Element-Com
 Please see LICENSE files in the repository root for full details.
 */
 
-import { test, expect, registerAccountMas } from ".";
-import { isDendrite } from "../../plugins/homeserver/dendrite";
+import { test, expect } from "../../element-web-test.ts";
+import { registerAccountMas } from ".";
 import { ElementAppPage } from "../../pages/ElementAppPage.ts";
+import { masHomeserver } from "../../plugins/homeserver/synapse/masHomeserver.ts";
 
+test.use(masHomeserver);
 test.describe("OIDC Native", { tag: ["@no-firefox", "@no-webkit"] }, () => {
-    test.skip(isDendrite, "does not yet support MAS");
     test.slow(); // trace recording takes a while here
 
-    test("can register the oauth2 client and an account", async ({ context, page, homeserver, mailhog, mas }) => {
-        const tokenUri = `http://localhost:${mas.port}/oauth2/token`;
+    test("can register the oauth2 client and an account", async ({
+        context,
+        page,
+        homeserver,
+        mailpitClient,
+        mas,
+    }, testInfo) => {
+        await page.clock.install();
+
+        const tokenUri = `${mas.baseUrl}/oauth2/token`;
         const tokenApiPromise = page.waitForRequest(
             (request) => request.url() === tokenUri && request.postDataJSON()["grant_type"] === "authorization_code",
         );
 
         await page.goto("/#/login");
         await page.getByRole("button", { name: "Continue" }).click();
-        await registerAccountMas(page, mailhog.api, "alice", "alice@email.com", "Pa$sW0rD!");
+
+        const userId = `alice_${testInfo.testId}`;
+        await registerAccountMas(page, mailpitClient, userId, "alice@email.com", "Pa$sW0rD!");
 
         // Eventually, we should end up at the home screen.
         await expect(page).toHaveURL(/\/#\/home$/, { timeout: 10000 });
-        await expect(page.getByRole("heading", { name: "Welcome alice", exact: true })).toBeVisible();
+        await expect(page.getByRole("heading", { name: `Welcome ${userId}`, exact: true })).toBeVisible();
+        await page.clock.runFor(20000); // run the timer so we see the token request
 
         const tokenApiRequest = await tokenApiPromise;
         expect(tokenApiRequest.postDataJSON()["grant_type"]).toBe("authorization_code");
@@ -49,7 +61,7 @@ test.describe("OIDC Native", { tag: ["@no-firefox", "@no-webkit"] }, () => {
         await newPage.close();
 
         // Assert logging out revokes both tokens
-        const revokeUri = `http://localhost:${mas.port}/oauth2/revoke`;
+        const revokeUri = `${mas.baseUrl}/oauth2/revoke`;
         const revokeAccessTokenPromise = page.waitForRequest(
             (request) => request.url() === revokeUri && request.postDataJSON()["token_type_hint"] === "access_token",
         );
