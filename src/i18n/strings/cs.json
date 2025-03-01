@@ -548,7 +548,6 @@
         "saved": "Uloženo",
         "saving": "Ukládání…",
         "secure_backup": "Zabezpečená záloha",
-        "security": "Zabezpečení",
         "select_all": "Vybrat všechny",
         "server": "Server",
         "settings": "Nastavení",
@@ -567,7 +566,6 @@
         "thread": "Vlákno",
         "threads": "Vlákna",
         "timeline": "Časová osa",
-        "trusted": "Důvěryhodné",
         "unavailable": "nedostupný",
         "unencrypted": "Nezašifrované",
         "unmute": "Povolit",
@@ -880,22 +878,22 @@
     "empty_room_was_name": "Prázdná místnost (dříve %(oldName)s)",
     "encryption": {
         "access_secret_storage_dialog": {
-            "enter_phrase_or_key_prompt": "Zadejte bezpečnostní frázi nebo <button>použijte bezpečnostní klíč</button> pro pokračování.",
+            "enter_phrase_or_key_prompt": "Pro pokračování zadejte bezpečnostní frázi nebo <button>klíč pro obnovení</button>.",
             "key_validation_text": {
-                "invalid_security_key": "Neplatný bezpečnostní klíč",
+                "invalid_security_key": "Neplatný klíč pro obnovení",
                 "recovery_key_is_correct": "To vypadá dobře!",
                 "wrong_file_type": "Špatný typ souboru",
-                "wrong_security_key": "Špatný bezpečnostní klíč"
+                "wrong_security_key": "Špatný klíč pro obnovení"
             },
             "reset_title": "Resetovat vše",
             "reset_warning_1": "Udělejte to, pouze pokud nemáte žádné jiné zařízení, se kterým byste mohli dokončit ověření.",
             "reset_warning_2": "Pokud vše resetujete, začnete bez důvěryhodných relací, bez důvěryhodných uživatelů a možná nebudete moci zobrazit minulé zprávy.",
             "restoring": "Obnovení klíčů ze zálohy",
-            "security_key_title": "Bezpečnostní klíč",
+            "security_key_title": "Klíč pro obnovení",
             "security_phrase_incorrect_error": "Nelze získat přístup k zabezpečenému úložišti. Ověřte, zda jste zadali správnou bezpečnostní frázi.",
             "security_phrase_title": "Bezpečnostní fráze",
             "separator": "%(securityKey)s nebo %(recoveryFile)s",
-            "use_security_key_prompt": "Pokračujte pomocí bezpečnostního klíče."
+            "use_security_key_prompt": "Pokračujte pomocí klíče pro obnovení."
         },
         "bootstrap_title": "Příprava klíčů",
         "cancel_entering_passphrase_description": "Chcete určitě zrušit zadávání přístupové fráze?",
@@ -972,7 +970,6 @@
             "title": "Nedůvěryhodné"
         },
         "unable_to_setup_keys_error": "Nepovedlo se nastavit klíče",
-        "unsupported": "Tento klient nepodporuje koncové šifrování.",
         "verification": {
             "accepting": "Přijímání…",
             "after_new_login": {
@@ -999,7 +996,7 @@
             "incoming_sas_dialog_waiting": "Čekání na potvrzení partnerem…",
             "incoming_sas_user_dialog_text_1": "Po ověření bude uživatel označen jako důvěryhodný. Ověřování uživatelů vám dává větší jistotu, že je komunikace důvěrná.",
             "incoming_sas_user_dialog_text_2": "Ověření uživatele označí jeho relace za důvěryhodné a vaše relace budou důvěryhodné pro něj.",
-            "no_key_or_device": "Vypadá to, že nemáte bezpečnostní klíč ani žádné jiné zařízení, které byste mohli ověřit.  Toto zařízení nebude mít přístup ke starým šifrovaným zprávám. Abyste mohli na tomto zařízení ověřit svou totožnost, budete muset resetovat ověřovací klíče.",
+            "no_key_or_device": "Vypadá to, že nemáte klíč pro obnovení ani žádné jiné zařízení, které byste mohli ověřit.  Toto zařízení nebude mít přístup ke starým zašifrovaným zprávám. Abyste mohli na tomto zařízení ověřit svou totožnost, budete muset obnovit ověřovací klíče.",
             "no_support_qr_emoji": "Zařízení, které se snažíte ověřit, neumožňuje ověření QR kódem ani pomocí emotikonů, které %(brand)s podporuje. Zkuste použít jiného klienta.",
             "other_party_cancelled": "Druhá strana ověření zrušila.",
             "prompt_encrypted": "Ověřit všechny uživatele v místnosti, abyste se přesvědčili o bezpečnosti.",
@@ -1049,18 +1046,21 @@
             "verify_emoji_prompt_qr": "Pokud vám skenování kódů nefunguje, ověřte se porovnáním emoji.",
             "verify_later": "Ověřím se později",
             "verify_reset_warning_1": "Resetování ověřovacích klíčů nelze vrátit zpět. Po jejich resetování nebudete mít přístup ke starým zašifrovaným zprávám a všem přátelům, kteří vás dříve ověřili, se zobrazí bezpečnostní varování, dokud se u nich znovu neověříte.",
-            "verify_reset_warning_2": "Pokračujte pouze v případě, že jste si jisti, že jste ztratili všechna ostatní zařízení a bezpečnostní klíč.",
+            "verify_reset_warning_2": "Pokračujte pouze v případě, že jste si jisti, že jste ztratili všechna ostatní zařízení a klíč pro obnovení.",
             "verify_using_device": "Ověřit pomocí jiného zařízení",
-            "verify_using_key": "Ověření pomocí bezpečnostního klíče",
-            "verify_using_key_or_phrase": "Ověření pomocí bezpečnostního klíče nebo fráze",
+            "verify_using_key": "Ověření pomocí klíče pro obnovení",
+            "verify_using_key_or_phrase": "Ověření pomocí klíče pro obnovení nebo fráze",
             "waiting_for_user_accept": "Čekáme, než %(displayName)s výzvu přijme…",
             "waiting_other_device": "Čekáme na ověření na jiném zařízení…",
             "waiting_other_device_details": "Čekáme na ověření na vašem dalším zařízení, %(deviceName)s (%(deviceId)s)…",
             "waiting_other_user": "Čekám až nás %(displayName)s ověří…"
         },
         "verification_requested_toast_title": "Žádost ověření",
+        "verified_identity_changed": "Ověřená identita %(displayName)s (<b>%(userId)s</b>) se změnila. <a>Další informace</a>",
+        "verified_identity_changed_no_displayname": "Ověřená identita uživatele <b>%(userId)s</b> se změnila. <a>Další informace</a>",
         "verify_toast_description": "Ostatní uživatelé této relaci nemusí věřit",
-        "verify_toast_title": "Ověřit tuto relaci"
+        "verify_toast_title": "Ověřit tuto relaci",
+        "withdraw_verification_action": "Zrušit ověření"
     },
     "error": {
         "admin_contact": "Pro pokračování využívání této služby prosím kontaktujte jejího <a>správce</a>.",
@@ -1091,7 +1091,7 @@
             "description_3": "Vymazání úložiště prohlížeče možná váš problém opraví, zároveň se tím ale odhlásíte a můžete přijít o historii svých šifrovaných konverzací.",
             "title": "Nelze obnovit relaci"
         },
-        "something_went_wrong": "Něco se nepodařilo!",
+        "something_went_wrong": "Něco se nepovedlo!",
         "storage_evicted_description_1": "Některá data sezení, například klíče od šifrovaných zpráv, nám chybí. Přihlaste se prosím znovu a obnovte si klíče ze zálohy.",
         "storage_evicted_description_2": "Prohlížeč data možná smazal aby ušetřil místo na disku.",
         "storage_evicted_title": "Chybějící data relace",
@@ -1497,6 +1497,7 @@
         "location_share_live_description": "Dočasná implementace. Polohy zůstanou v historii místností.",
         "mjolnir": "Nové způsoby ignorování lidí",
         "msc3531_hide_messages_pending_moderation": "Umožnit moderátorům skrývat zprávy čekající na moderaci.",
+        "new_room_list": "Povolit nový seznam místností",
         "notification_settings": "Nová nastavení oznámení",
         "notification_settings_beta_caption": "Představujeme jednodušší způsob, jak změnit nastavení oznámení. Přizpůsobte svůj %(brand)s přesně tak, jak se vám líbí.",
         "notification_settings_beta_title": "Nastavení oznámení",
@@ -1801,24 +1802,24 @@
     "restore_key_backup_dialog": {
         "count_of_decryption_failures": "Nepovedlo se rozšifrovat %(failedCount)s sezení!",
         "count_of_successfully_restored_keys": "Úspěšně obnoveno %(sessionCount)s klíčů",
-        "enter_key_description": "Vstupte do historie zabezpečených zpráv a nastavte zabezpečené zprávy zadáním bezpečnostního klíče.",
-        "enter_key_title": "Zadejte bezpečnostní klíč",
+        "enter_key_description": "Získejte přístup k historii zabezpečených zpráv a nastavte zabezpečené zasílání zpráv zadáním klíče pro obnovení.",
+        "enter_key_title": "Zadejte klíč pro obnovení",
         "enter_phrase_description": "Vstupte do historie zabezpečených zpráv a nastavte zabezpečené zprávy zadáním bezpečnostní fráze.",
         "enter_phrase_title": "Zadejte bezpečnostní frázi",
         "incorrect_security_phrase_dialog": "Zálohu nebylo možné dešifrovat pomocí této bezpečnostní fráze: ověřte, zda jste zadali správnou bezpečnostní frázi.",
         "incorrect_security_phrase_title": "Nesprávná bezpečnostní fráze",
         "key_backup_warning": "<b>Uporoznění</b>: záloha by měla být prováděna na důvěryhodném počítači.",
         "key_fetch_in_progress": "Načítání klíčů ze serveru…",
-        "key_forgotten_text": "Pokud jste zapomněli bezpečnostní klíč, můžete <button>nastavit nové možnosti obnovení</button>",
-        "key_is_invalid": "Neplatný bezpečnostní klíč",
-        "key_is_valid": "Vypadá to jako platný bezpečnostní klíč!",
+        "key_forgotten_text": "Pokud jste zapomněli klíč pro obnovení, můžete <button>nastavit nové možnosti obnovení</button>",
+        "key_is_invalid": "Neplatný klíč pro obnovení",
+        "key_is_valid": "Vypadá to jako platný klíč pro obnovení!",
         "keys_restored_title": "Klíče byly obnoveny",
         "load_error_content": "Nepovedlo se načíst stav zálohy",
         "load_keys_progress": "Obnoveno %(completed)s z %(total)s klíčů",
         "no_backup_error": "Nenalezli jsme žádnou zálohu!",
-        "phrase_forgotten_text": "Pokud jste zapomněli bezpečnostní frázi, můžete <button1>použít bezpečnostní klíč</button1> nebo <button2>nastavit nové možnosti obnovení</button2>",
-        "recovery_key_mismatch_description": "Zálohu nebylo možné dešifrovat pomocí tohoto bezpečnostního klíče: ověřte, zda jste zadali správný bezpečnostní klíč.",
-        "recovery_key_mismatch_title": "Neshoda bezpečnostního klíče",
+        "phrase_forgotten_text": "Pokud jste zapomněli bezpečnostní frázi, můžete <button1>použít klíč pro obnovení</button1> nebo <button2>nastavit nové možnosti obnovení</button2>",
+        "recovery_key_mismatch_description": "Zálohu se nepodařilo dešifrovat pomocí tohoto klíče pro obnovení: ověřte, zda jste zadali správný klíč pro obnovení.",
+        "recovery_key_mismatch_title": "Neshoda klíče pro obnovení",
         "restore_failed_error": "Nepovedlo se obnovit ze zálohy"
     },
     "right_panel": {
@@ -2471,6 +2472,7 @@
                 "breadcrumb_second_description": "Ztratíte veškerou historii zpráv, která je uložena pouze na serveru",
                 "breadcrumb_third_description": "Budete muset znovu ověřit všechna svá stávající zařízení a kontakty",
                 "breadcrumb_title": "Opravdu chcete obnovit svou identitu?",
+                "breadcrumb_title_forgot": "Zapomněli jste klíč pro obnovení? Budete muset obnovit svou identitu.",
                 "breadcrumb_warning": "Udělejte to pouze v případě, že se domníváte, že váš účet byl napaden.",
                 "details_title": "Podrobnosti o šifrování",
                 "export_keys": "Exportovat klíče",
@@ -2497,7 +2499,8 @@
                 "description": "Pokud jste ztratili všechna stávající zařízení, obnovte kryptografickou identitu a historii zpráv pomocí klíče pro obnovení.",
                 "enter_key_error": "Zadaný klíč pro obnovení není správný.",
                 "enter_recovery_key": "Zadejte klíč pro obnovení",
-                "key_storage_warning": "Vaše úložiště klíčů není synchronizováno. Kliknutím na tlačítko níže problém vyřešte.",
+                "forgot_recovery_key": "Zapomněli jste klíč pro obnovení?",
+                "key_storage_warning": "Vaše úložiště klíčů není synchronizováno. Kliknutím na jedno z níže uvedených tlačítek problém vyřešte.",
                 "save_key_description": "Nesdílejte ho s nikým!",
                 "save_key_title": "Klíč pro obnovení",
                 "set_up_recovery": "Nastavení obnovy",
@@ -2619,21 +2622,21 @@
                 "enter_phrase_description": "Zadejte bezpečnostní frázi, kterou znáte jen vy, protože slouží k ochraně vašich dat. V zájmu bezpečnosti byste neměli heslo k účtu používat opakovaně.",
                 "enter_phrase_title": "Zadání bezpečnostní fráze",
                 "enter_phrase_to_confirm": "Zadejte bezpečnostní frázi podruhé a potvrďte ji.",
-                "generate_security_key_description": "Vygenerujeme vám bezpečnostní klíč, který uložíte na bezpečné místo, například do správce hesel nebo do trezoru.",
-                "generate_security_key_title": "Vygenerovat bezpečnostní klíč",
+                "generate_security_key_description": "Vygenerujeme klíč pro obnovení, který můžete uložit někde v bezpečí, jako je správce hesel nebo trezor.",
+                "generate_security_key_title": "Vygenerovat klíč pro obnovení",
                 "pass_phrase_match_failed": "To nesedí.",
                 "pass_phrase_match_success": "To odpovídá!",
                 "phrase_strong_enough": "Skvělé! Tato bezpečnostní fráze vypadá dostatečně silně.",
                 "secret_storage_query_failure": "Nelze zjistit stav úložiště klíčů",
-                "security_key_safety_reminder": "Bezpečnostní klíč uložte na bezpečné místo, například do správce hesel nebo do trezoru, protože slouží k ochraně zašifrovaných dat.",
+                "security_key_safety_reminder": "Klíč pro obnovení uložte na bezpečném místě, jako je správce hesel nebo trezor, protože slouží k ochraně vašich šifrovaných dat.",
                 "set_phrase_again": "Nastavit heslo znovu.",
                 "settings_reminder": "Zabezpečené zálohování a správu klíčů můžete také nastavit v Nastavení.",
                 "title_confirm_phrase": "Potvrďte bezpečnostní frázi",
-                "title_save_key": "Uložte svůj bezpečnostní klíč",
+                "title_save_key": "Uložit klíč pro obnovení",
                 "title_set_phrase": "Nastavit bezpečnostní frázi",
                 "unable_to_setup": "Nepovedlo se nastavit bezpečné úložiště",
                 "use_different_passphrase": "Použít jinou přístupovou frázi?",
-                "use_phrase_only_you_know": "Použijte tajnou frázi, kterou znáte pouze vy, a volitelně uložte bezpečnostní klíč, který použijete pro zálohování."
+                "use_phrase_only_you_know": "Použijte tajnou frázi, kterou znáte pouze vy, a volitelně uložte klíč pro obnovení, který použijete pro zálohování."
             }
         },
         "key_export_import": {
@@ -2752,7 +2755,7 @@
             "backup_key_stored_status": "Klíč zálohy uložen:",
             "backup_key_unexpected_type": "neočekávaný typ",
             "backup_key_well_formed": "ve správném tvaru",
-            "backup_keys_description": "Zálohujte šifrovací klíče s daty účtu pro případ, že ztratíte přístup k relacím. Vaše klíče budou zabezpečeny jedinečným bezpečnostním klíčem.",
+            "backup_keys_description": "Zálohujte šifrovací klíče s daty účtu pro případ, že ztratíte přístup k relacím. Vaše klíče budou zabezpečeny jedinečným klíčem pro obnovení.",
             "bulk_options_accept_all_invites": "Přijmout pozvání do všech těchto místností: %(invitedRooms)s",
             "bulk_options_reject_all_invites": "Odmítnutí všech %(invitedRooms)s pozvání",
             "bulk_options_section": "Hromadná možnost",
@@ -3460,6 +3463,7 @@
             "left_reason": "%(targetName)s opustil(a) místnost: %(reason)s",
             "no_change": "%(senderName)s neprovedl(a) žádnou změnu",
             "reject_invite": "%(targetName)s odmítl(a) pozvání",
+            "reject_invite_reason": "%(targetName)s pozvánku odmítl(a): %(reason)s",
             "remove_avatar": "%(senderName)s odstranil(a) svůj profilový obrázek",
             "remove_name": "%(senderName)s odstranil(a) své zobrazované jméno (%(oldDisplayName)s)",
             "set_avatar": "%(senderName)s si nastavil(a) profilový obrázek",
@@ -3495,7 +3499,10 @@
             "sent": "%(senderName)s pozval(a) uživatele %(targetDisplayName)s ke vstupu do místnosti."
         },
         "m.room.tombstone": "%(senderDisplayName)s aktualizoval(a) místnost.",
-        "m.room.topic": "%(senderDisplayName)s změnil(a) téma na „%(topic)s“.",
+        "m.room.topic": {
+            "changed": "%(senderDisplayName)s změnil(a) téma na „%(topic)s“.",
+            "removed": "%(senderDisplayName)s odstranil(a) téma."
+        },
         "m.sticker": "%(senderDisplayName)s poslal(a) nálepku.",
         "m.video": {
             "error_decrypting": "Chyba při dešifrování videa"
@@ -3784,18 +3791,9 @@
         "ban_room_confirm_title": "Vykázat z %(roomName)s",
         "ban_space_everything": "Vykázat je všude, kde mohu",
         "ban_space_specific": "Vykázat je z konkrétních míst, ze kterých jsem schopen",
-        "count_of_sessions": {
-            "other": "%(count)s relací",
-            "one": "%(count)s relace"
-        },
-        "count_of_verified_sessions": {
-            "other": "%(count)s ověřených relací",
-            "one": "1 ověřená relace"
-        },
         "deactivate_confirm_action": "Deaktivovat uživatele",
         "deactivate_confirm_description": "Deaktivování uživatele ho odhlásí a zabrání mu v opětovném přihlášení. Navíc bude odstraněn ze všech místností. Akci nelze vzít zpět. Opravdu chcete uživatele deaktivovat?",
         "deactivate_confirm_title": "Deaktivovat uživatele?",
-        "dehydrated_device_enabled": "Offline zařízení povoleno",
         "demote_button": "Degradovat",
         "demote_self_confirm_description_space": "Tuto změnu nebudete moci vrátit zpět, protože budete degradováni, pokud jste posledním privilegovaným uživatelem v daném prostoru, nebude možné znovu získat oprávnění.",
         "demote_self_confirm_room": "Tuto změnu nebudete moci vzít zpět, protože snižujete svoji vlastní hodnost, jste-li poslední privilegovaný uživatel v místnosti, bude nemožné vaši současnou hodnost získat zpět.",
@@ -3803,15 +3801,12 @@
         "disinvite_button_room": "Zrušit pozvánku do místnosti",
         "disinvite_button_room_name": "Zrušit pozvánku do %(roomName)s",
         "disinvite_button_space": "Zrušit pozvánku do prostoru",
-        "edit_own_devices": "Upravit zařízení",
         "error_ban_user": "Nepodařilo se vykázat uživatele",
         "error_deactivate": "Deaktivace uživatele se nezdařila",
         "error_kicking_user": "Nepodařilo se odebrat uživatele",
         "error_mute_user": "Ztlumení uživatele se nezdařilo",
         "error_revoke_3pid_invite_description": "Pozvání se nepovedlo zrušit. Mohlo dojít k dočasnému problému nebo na to nemáte dostatečná práva.",
         "error_revoke_3pid_invite_title": "Pozvání se nepovedlo zrušit",
-        "hide_sessions": "Skrýt relace",
-        "hide_verified_sessions": "Skrýt ověřené relace",
         "ignore_button": "Ignorovat",
         "ignore_confirm_description": "Všechny zprávy a pozvánky od tohoto uživatele budou skryty. Opravdu je chcete ignorovat?",
         "ignore_confirm_title": "Ignorovat %(user)s",
@@ -3855,6 +3850,7 @@
         "unban_space_specific": "Zrušit jejich vykázání z konkrétních míst, kde mám oprávnění",
         "unban_space_warning": "Nebudou mít přístup ke všemu, čeho nejste správcem.",
         "unignore_button": "Zrušit ignorování",
+        "verification_unavailable": "Ověření uživatele není k dispozici",
         "verify_button": "Ověřit uživatele",
         "verify_explainer": "Pro lepší bezpečnost, ověřte uživatele zkontrolováním jednorázového kódu na vašich zařízeních."
     },

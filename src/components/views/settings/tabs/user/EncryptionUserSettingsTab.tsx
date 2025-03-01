@@ -5,7 +5,7 @@
  * Please see LICENSE files in the repository root for full details.
  */
 
-import React, { JSX, useCallback, useEffect, useState } from "react";
+import React, { type JSX, useCallback, useEffect, useState } from "react";
 import { Button, InlineSpinner, Separator } from "@vector-im/compound-web";
 import ComputerIcon from "@vector-im/compound-design-tokens/assets/web/icons/computer";
 
@@ -71,7 +71,12 @@ export function EncryptionUserSettingsTab({ initialState = "loading" }: Encrypti
             content = <SetUpEncryptionPanel onFinish={checkEncryptionState} />;
             break;
         case "secrets_not_cached":
-            content = <RecoveryPanelOutOfSync onFinish={checkEncryptionState} />;
+            content = (
+                <RecoveryPanelOutOfSync
+                    onFinish={checkEncryptionState}
+                    onForgotRecoveryKey={() => setState("reset_identity_forgot")}
+                />
+            );
             break;
         case "main":
             content = (
@@ -97,20 +102,12 @@ export function EncryptionUserSettingsTab({ initialState = "loading" }: Encrypti
             );
             break;
         case "reset_identity_compromised":
-            content = (
-                <ResetIdentityPanel
-                    variant="compromised"
-                    onCancelClick={() => setState("main")}
-                    onFinish={() => setState("main")}
-                />
-            );
-            break;
         case "reset_identity_forgot":
             content = (
                 <ResetIdentityPanel
-                    variant="forgot"
-                    onCancelClick={() => setState("main")}
-                    onFinish={() => setState("main")}
+                    variant={state === "reset_identity_compromised" ? "compromised" : "forgot"}
+                    onCancelClick={checkEncryptionState}
+                    onFinish={checkEncryptionState}
                 />
             );
             break;

@@ -9,12 +9,13 @@ import { Breadcrumb, Button, VisualList, VisualListItem } from "@vector-im/compo
 import CheckIcon from "@vector-im/compound-design-tokens/assets/web/icons/check";
 import InfoIcon from "@vector-im/compound-design-tokens/assets/web/icons/info";
 import ErrorIcon from "@vector-im/compound-design-tokens/assets/web/icons/error";
-import React, { MouseEventHandler } from "react";
+import React, { type MouseEventHandler } from "react";
 
 import { _t } from "../../../../languageHandler";
 import { EncryptionCard } from "./EncryptionCard";
 import { useMatrixClientContext } from "../../../../contexts/MatrixClientContext";
 import { uiAuthCallback } from "../../../../CreateCrossSigning";
+import { EncryptionCardButtons } from "./EncryptionCardButtons";
 
 interface ResetIdentityPanelProps {
     /**
@@ -74,7 +75,7 @@ export function ResetIdentityPanel({ onCancelClick, onFinish, variant }: ResetId
                     </VisualList>
                     {variant === "compromised" && <span>{_t("settings|encryption|advanced|breadcrumb_warning")}</span>}
                 </div>
-                <div className="mx_ResetIdentityPanel_footer">
+                <EncryptionCardButtons>
                     <Button
                         destructive={true}
                         onClick={async (evt) => {
@@ -89,7 +90,7 @@ export function ResetIdentityPanel({ onCancelClick, onFinish, variant }: ResetId
                     <Button kind="tertiary" onClick={onCancelClick}>
                         {_t("action|cancel")}
                     </Button>
-                </div>
+                </EncryptionCardButtons>
             </EncryptionCard>
         </>
     );

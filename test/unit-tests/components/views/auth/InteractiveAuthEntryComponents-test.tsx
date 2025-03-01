@@ -10,7 +10,7 @@ import React from "react";
 import { render, screen, waitFor, act, fireEvent } from "jest-matrix-react";
 import { AuthType } from "matrix-js-sdk/src/interactive-auth";
 import userEvent from "@testing-library/user-event";
-import { Policy } from "matrix-js-sdk/src/matrix";
+import { type Policy } from "matrix-js-sdk/src/matrix";
 
 import {
     EmailIdentityAuthEntry,
@@ -31,7 +31,6 @@ describe("<EmailIdentityAuthEntry/>", () => {
                 submitAuthDict={jest.fn()}
                 fail={jest.fn()}
                 clientSecret="my secret"
-                showContinue={true}
                 inputs={{ emailAddress: "alice@example.xyz" }}
             />,
         );
@@ -73,7 +72,6 @@ describe("<MasUnlockCrossSigningAuthEntry/>", () => {
                 submitAuthDict={jest.fn()}
                 fail={jest.fn()}
                 clientSecret="my secret"
-                showContinue={true}
                 stageParams={{ url: "https://example.com" }}
                 {...props}
             />,
@@ -114,7 +112,6 @@ describe("<TermsAuthEntry/>", () => {
                 submitAuthDict={jest.fn()}
                 fail={jest.fn()}
                 clientSecret="my secret"
-                showContinue={true}
                 stageParams={{
                     policies: {
                         test_policy: policy,

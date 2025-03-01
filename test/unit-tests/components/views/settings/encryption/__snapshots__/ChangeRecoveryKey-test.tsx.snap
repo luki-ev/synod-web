@@ -135,7 +135,7 @@ exports[`<ChangeRecoveryKey /> flow to change the recovery key should display th
       </button>
     </div>
     <div
-      class="mx_ChangeRecoveryKey_footer"
+      class="mx_EncryptionCard_buttons"
     >
       <button
         class="_button_i91xf_17"
@@ -160,7 +160,7 @@ exports[`<ChangeRecoveryKey /> flow to change the recovery key should display th
 </DocumentFragment>
 `;
 
-exports[`<ChangeRecoveryKey /> flow to setup a recovery key should ask the user to enter the recovery key 1`] = `
+exports[`<ChangeRecoveryKey /> flow to set up a recovery key should ask the user to enter the recovery key 1`] = `
 <DocumentFragment>
   <nav
     class="_breadcrumb_ikpbb_17"
@@ -266,7 +266,7 @@ exports[`<ChangeRecoveryKey /> flow to setup a recovery key should ask the user 
         />
       </div>
       <div
-        class="mx_ChangeRecoveryKey_footer"
+        class="mx_EncryptionCard_buttons"
       >
         <button
           aria-disabled="true"
@@ -293,7 +293,7 @@ exports[`<ChangeRecoveryKey /> flow to setup a recovery key should ask the user 
 </DocumentFragment>
 `;
 
-exports[`<ChangeRecoveryKey /> flow to setup a recovery key should ask the user to enter the recovery key 2`] = `
+exports[`<ChangeRecoveryKey /> flow to set up a recovery key should ask the user to enter the recovery key 2`] = `
 <DocumentFragment>
   <nav
     class="_breadcrumb_ikpbb_17"
@@ -421,7 +421,7 @@ exports[`<ChangeRecoveryKey /> flow to setup a recovery key should ask the user 
         </span>
       </div>
       <div
-        class="mx_ChangeRecoveryKey_footer"
+        class="mx_EncryptionCard_buttons"
       >
         <button
           aria-disabled="true"
@@ -448,7 +448,7 @@ exports[`<ChangeRecoveryKey /> flow to setup a recovery key should ask the user 
 </DocumentFragment>
 `;
 
-exports[`<ChangeRecoveryKey /> flow to setup a recovery key should display information about the recovery key 1`] = `
+exports[`<ChangeRecoveryKey /> flow to set up a recovery key should display information about the recovery key 1`] = `
 <DocumentFragment>
   <nav
     class="_breadcrumb_ikpbb_17"
@@ -539,7 +539,7 @@ exports[`<ChangeRecoveryKey /> flow to setup a recovery key should display infor
       After clicking continue, we’ll generate a recovery key for you.
     </span>
     <div
-      class="mx_ChangeRecoveryKey_footer"
+      class="mx_EncryptionCard_buttons"
     >
       <button
         class="_button_i91xf_17"
@@ -564,7 +564,7 @@ exports[`<ChangeRecoveryKey /> flow to setup a recovery key should display infor
 </DocumentFragment>
 `;
 
-exports[`<ChangeRecoveryKey /> flow to setup a recovery key should display the recovery key 1`] = `
+exports[`<ChangeRecoveryKey /> flow to set up a recovery key should display the recovery key 1`] = `
 <DocumentFragment>
   <nav
     class="_breadcrumb_ikpbb_17"
@@ -699,7 +699,7 @@ exports[`<ChangeRecoveryKey /> flow to setup a recovery key should display the r
       </button>
     </div>
     <div
-      class="mx_ChangeRecoveryKey_footer"
+      class="mx_EncryptionCard_buttons"
     >
       <button
         class="_button_i91xf_17"

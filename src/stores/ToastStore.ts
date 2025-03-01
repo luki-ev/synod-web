@@ -7,10 +7,10 @@ Please see LICENSE files in the repository root for full details.
 */
 
 import EventEmitter from "events";
-import React from "react";
 import { logger } from "matrix-js-sdk/src/logger";
 
-import { ComponentClass } from "../@types/common";
+import type React from "react";
+import { type ComponentClass } from "../@types/common";
 
 export interface IToast<C extends ComponentClass> {
     key: string;
