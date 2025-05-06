@@ -525,6 +525,7 @@
         "message_timestamp_invalid": "Vigane ajatempel",
         "microphone": "Mikrofon",
         "model": "Mudel",
+        "moderation_and_safety": "Modereerimine ja turvalisus",
         "modern": "Moodne",
         "mute": "Summuta",
         "n_members": {
@@ -1133,11 +1134,7 @@
             "title": "Jututoa lingi kopeerimine ei õnnestu"
         },
         "error_loading_user_profile": "Kasutajaprofiili laadimine ei õnnestunud",
-        "forget_room_failed": "Jututoa unustamine ei õnnestunud %(errCode)s",
-        "search_failed": {
-            "server_unavailable": "Server kas pole leitav, on ülekoormatud või otsing aegus :(",
-            "title": "Otsing ebaõnnestus"
-        }
+        "forget_room_failed": "Jututoa unustamine ei õnnestunud %(errCode)s"
     },
     "error_user_not_logged_in": "Kasutaja pole võrku loginud",
     "event_preview": {
@@ -2098,12 +2095,14 @@
             },
             "uploading_single_file": "Laadin üles %(filename)s"
         },
+        "video_room": "See jututuba on mõeldud videokohtumiste jaoks",
         "waiting_for_join_subtitle": "Kui kutse saanud kasutajad on liitunud %(brand)s'ga, siis saad sa nendega suhelda ja jututuba on läbivalt krüptitud",
         "waiting_for_join_title": "Kasutajate liitumise ootel %(brand)s'ga"
     },
     "room_list": {
         "add_room_label": "Lisa jututuba",
         "add_space_label": "Lisa kogukonnakeskus",
+        "appearance": "Välimus",
         "breadcrumbs_empty": "Hiljuti külastatud jututubasid ei leidu",
         "breadcrumbs_label": "Hiljuti külastatud jututoad",
         "empty": {
@@ -2154,7 +2153,10 @@
             "more_options": "Täiendavad seadistused",
             "open_room": "Ava jututuba: %(roomName)s"
         },
+        "room_options": "Jututoa valikud",
+        "secondary_filters": "Teisesed filtrid",
         "show_less": "Näita vähem",
+        "show_message_previews": "Näita sõnumite eelvaateid",
         "show_n_more": {
             "one": "Näita veel %(count)s vestlust",
             "other": "Näita veel %(count)s vestlust"
@@ -2671,12 +2673,10 @@
             "unable_to_load_msisdns": "Telefoninumbrite laadimine ei õnnestu",
             "username": "Kasutajanimi"
         },
-        "image_thumbnails": "Näita piltide eelvaateid või väikepilte",
         "inline_url_previews_default": "Luba URL'ide vaikimisi eelvaated",
         "inline_url_previews_room": "Luba URL'ide vaikimisi eelvaated selles jututoas osalejate jaoks",
         "inline_url_previews_room_account": "Luba URL'ide eelvaated selle jututoa jaoks (mõjutab vaid sind)",
         "insert_trailing_colon_mentions": "Mainimiste järel näita sõnumi alguses koolonit",
-        "invite_avatars": "Näita nende jututubade tunnuspilte, kuhu oled saanud kutse",
         "jump_to_bottom_on_send": "Sõnumi saatmiseks hüppa ajajoone lõppu",
         "key_backup": {
             "backup_in_progress": "Sinu krüptovõtmeid varundatakse (esimese varukoopia tegemine võib võtta paar minutit).",
@@ -2734,6 +2734,14 @@
         },
         "labs_mjolnir": {
             "dialog_title": "<strong>Seadistused:</strong> Eiratud kasutajad"
+        },
+        "media_preview": {
+            "hide_avatars": "Peida jututoa ja kutsuja tunnuspildid",
+            "hide_media": "Peida alati",
+            "media_preview_description": "Peidetud meediumi saad alati näha temal klõpsides",
+            "media_preview_label": "Näita ajajoonel meediat",
+            "show_in_private": "Privaatsetes jututubades",
+            "show_media": "Alati"
         },
         "notifications": {
             "default_setting_description": "See seadistus kehtib vaikimisi kõikides sinu jututubades.",
@@ -3096,8 +3104,6 @@
         "topic": "Otsib või määrab jututoa teema",
         "topic_none": "Sellel jututoal puudub teema.",
         "topic_room_error": "Jututoa teema laadimine ei õnnestu: jututuba ei õnnestu leida (%(roomId)s)",
-        "tovirtual": "Kui jututoal on virtuaalne olek, siis kasuta seda",
-        "tovirtual_not_found": "Sellel jututoal pole virtuaalset olekut",
         "unban": "Taasta ligipääs antud tunnusega kasutajale",
         "unflip": "Lisab vormindamata sõnumi ette ┬──┬ ノ( ゜-゜ノ)",
         "unholdcall": "Võtab selles jututoas ootel oleva kõne",

@@ -5,7 +5,7 @@
  * Please see LICENSE files in the repository root for full details.
  */
 
-import React, { type JSX, useState } from "react";
+import React, { type JSX, memo, useState } from "react";
 import { type Room } from "matrix-js-sdk/src/matrix";
 import classNames from "classnames";
 
@@ -15,7 +15,7 @@ import { RoomListItemMenuView } from "./RoomListItemMenuView";
 import { NotificationDecoration } from "../NotificationDecoration";
 import { RoomAvatarView } from "../../avatars/RoomAvatarView";
 
-interface RoomListItemViewPropsProps extends React.HTMLAttributes<HTMLButtonElement> {
+interface RoomListItemViewProps extends React.HTMLAttributes<HTMLButtonElement> {
     /**
      * The room to display
      */
@@ -29,7 +29,11 @@ interface RoomListItemViewPropsProps extends React.HTMLAttributes<HTMLButtonElem
 /**
  * An item in the room list
  */
-export function RoomListItemView({ room, isSelected, ...props }: RoomListItemViewPropsProps): JSX.Element {
+export const RoomListItemView = memo(function RoomListItemView({
+    room,
+    isSelected,
+    ...props
+}: RoomListItemViewProps): JSX.Element {
     const vm = useRoomListItemViewModel(room);
 
     const [isHover, setIsHover] = useState(false);
@@ -38,9 +42,7 @@ export function RoomListItemView({ room, isSelected, ...props }: RoomListItemVie
     // Using display: none; and then display:flex when hovered in CSS causes the menu to be misaligned
     const showHoverDecoration = (isMenuOpen || isHover) && vm.showHoverMenu;
 
-    const isNotificationDecorationVisible =
-        !showHoverDecoration &&
-        (vm.notificationState.hasAnyNotificationOrActivity || vm.notificationState.muted || vm.hasParticipantInCall);
+    const isNotificationDecorationVisible = !showHoverDecoration && vm.showNotificationDecoration;
 
     return (
         <button
@@ -71,9 +73,12 @@ export function RoomListItemView({ room, isSelected, ...props }: RoomListItemVie
                     justify="space-between"
                 >
                     {/* We truncate the room name when too long. Title here is to show the full name on hover */}
-                    <span className="mx_RoomListItemView_roomName" title={room.name}>
-                        {room.name}
-                    </span>
+                    <div className="mx_RoomListItemView_text">
+                        <div className="mx_RoomListItemView_roomName" title={vm.name}>
+                            {vm.name}
+                        </div>
+                        <div className="mx_RoomListItemView_messagePreview">{vm.messagePreview}</div>
+                    </div>
                     {showHoverDecoration ? (
                         <RoomListItemMenuView
                             room={room}
@@ -86,15 +91,17 @@ export function RoomListItemView({ room, isSelected, ...props }: RoomListItemVie
                     ) : (
                         <>
                             {/* aria-hidden because we summarise the unread count/notification status in a11yLabel variable */}
-                            <NotificationDecoration
-                                notificationState={vm.notificationState}
-                                aria-hidden={true}
-                                hasVideoCall={vm.hasParticipantInCall}
-                            />
+                            {vm.showNotificationDecoration && (
+                                <NotificationDecoration
+                                    notificationState={vm.notificationState}
+                                    aria-hidden={true}
+                                    hasVideoCall={vm.hasParticipantInCall}
+                                />
+                            )}
                         </>
                     )}
                 </Flex>
             </Flex>
         </button>
     );
-}
+});
