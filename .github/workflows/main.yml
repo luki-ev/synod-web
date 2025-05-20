@@ -16,7 +16,7 @@ jobs:
     - uses: actions/setup-node@v4
       with:
         node-version: '22'
-    - run: yarn install
+    - run: yarn install --frozen-lockfile
     - run: yarn dist
       env:
         RIOT_OG_IMAGE_URL: https://web.synod.im/themes/element/img/logos/synod-im-logo-color.png
