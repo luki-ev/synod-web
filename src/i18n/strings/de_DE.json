@@ -911,9 +911,11 @@
     "empty_room_was_name": "Leerer Raum (war %(oldName)s)",
     "encryption": {
         "access_secret_storage_dialog": {
+            "alternatives": "Wenn Sie einen Sicherheitsschlüssel oder eine Sicherheitsphrase haben, funktioniert das auch.",
             "key_validation_text": {
-                "wrong_security_key": "Falscher Wiederherstellungsschlüssel"
+                "wrong_security_key": "Der eingegebene Wiederherstellungsschlüssel ist nicht korrekt."
             },
+            "privacy_warning": "Stellen Sie sicher, dass niemand diesen Bildschirm sehen kann!",
             "restoring": "Schlüssel aus der Sicherung wiederherstellen",
             "security_key_title": "Wiederherstellungsschlüssel"
         },
@@ -2091,7 +2093,6 @@
     "room_list": {
         "add_room_label": "Raum hinzufügen",
         "add_space_label": "Space hinzufügen",
-        "appearance": "Erscheinungsbild",
         "breadcrumbs_empty": "Keine kürzlich besuchten Räume",
         "breadcrumbs_label": "Kürzlich besuchte Räume",
         "empty": {
@@ -2149,7 +2150,6 @@
         },
         "room_options": "Chatroomoptionen",
         "show_less": "Weniger anzeigen",
-        "show_message_previews": "Nachrichtenvorschau anzeigen",
         "show_n_more": {
             "other": "%(count)s weitere anzeigen",
             "one": "%(count)s weitere anzeigen"
