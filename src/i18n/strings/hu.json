@@ -916,8 +916,6 @@
             "security_key_title": "Helyreállítási kulcs"
         },
         "bootstrap_title": "Kulcsok beállítása",
-        "cancel_entering_passphrase_description": "Biztos, hogy megszakítja a jelmondat bevitelét?",
-        "cancel_entering_passphrase_title": "Megszakítja a jelmondat bevitelét?",
         "confirm_encryption_setup_body": "Az alábbi gomb megnyomásával erősítsd meg, hogy megadod a titkosítási beállításokat.",
         "confirm_encryption_setup_title": "Erősítse meg a titkosítási beállításokat",
         "cross_signing_room_normal": "Ez a szoba végpontok közti titkosítást használ",
@@ -962,7 +960,6 @@
         },
         "reset_all_button": "Elfelejtette vagy elveszett minden helyreállítási lehetőség? <a>Minden alaphelyzetbe állítása</a>",
         "set_up_recovery": "Helyreállítás beállítása",
-        "set_up_recovery_later": "Most nem",
         "set_up_recovery_toast_description": "Létrehozhat egy helyreállítási kulcsot, amellyel helyreállíthatja a titkosított üzenetelőzményeit, ha elveszíti a hozzáférést az eszközeihez.",
         "set_up_toast_description": "Biztosíték a titkosított üzenetekhez és adatokhoz való hozzáférés elvesztése ellen",
         "set_up_toast_title": "Biztonsági mentés beállítása",
@@ -3101,6 +3098,7 @@
         "upgraderoom": "Új verzióra fejleszti a szobát",
         "upgraderoom_permission_error": "A parancs használatához nincs meg a megfelelő jogosultsága.",
         "usage": "Használat",
+        "verify": "Felhasználó, munkamenet és nyilvános kulcs hármas ellenőrzése",
         "view": "Megadott címmel rendelkező szobák megjelenítése",
         "whois": "Információt jelenít meg a felhasználóról"
     },
