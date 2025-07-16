@@ -11,6 +11,7 @@ Please see LICENSE files in the repository root for full details.
 
 export enum MobileAppVariant {
     Classic = "element-classic",
+    Synod = "synod",
     X = "element",
     Pro = "element-pro",
 }
@@ -33,6 +34,16 @@ export const mobileApps: Record<MobileAppVariant, MobileAppMetadata> = {
         appStoreUrl: "https://apps.apple.com/app/element-messenger/id1083446067",
         playStoreUrl: "https://play.google.com/store/apps/details?id=im.vector.app",
         fDroidUrl: "https://f-droid.org/packages/im.vector.app",
+        deepLinkPath: "",
+        usesLegacyDeepLink: true,
+        isProApp: false,
+    },
+    [MobileAppVariant.Synod]: {
+        name: "Synod",
+        appleAppId: "id1488171544",
+        appStoreUrl: "https://apps.apple.com/app/synod-im/id1488171544",
+        playStoreUrl: "https://play.google.com/store/apps/details?id=im.synod",
+        fDroidUrl: "https://repo.librechurch.org/fdroid/",
         deepLinkPath: "",
         usesLegacyDeepLink: true,
         isProApp: false,
