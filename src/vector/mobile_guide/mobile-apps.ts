@@ -74,7 +74,7 @@ export function updateMobilePage(metadata: MobileAppMetadata, deepLinkUrl: strin
     appleMeta.setAttribute("content", `app-id=${metadata.appleAppId}`);
 
     if (server) {
-        (document.getElementById("header_title") as HTMLHeadingElement).innerText = `Join ${server} on Element`;
+        (document.getElementById("header_title") as HTMLHeadingElement).innerText = `Join ${server} on ${metadata.name}`;
     }
     (document.getElementById("app_store_link") as HTMLAnchorElement).href = metadata.appStoreUrl;
     (document.getElementById("play_store_link") as HTMLAnchorElement).href = metadata.playStoreUrl;
