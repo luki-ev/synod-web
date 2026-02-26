@@ -8,9 +8,10 @@ Please see LICENSE files in the repository root for full details.
 import {
     MatrixAuthenticationServiceContainer as BaseMatrixAuthenticationServiceContainer,
     type StartedPostgreSqlContainer,
-} from "@element-hq/element-web-playwright-common/lib/testcontainers";
+} from "@element-hq/element-web-playwright-common/lib/testcontainers/index.js";
 
-const TAG = "main@sha256:d0d03f9067c7977807131a9c739c9ed9f081063d1a1c21bee66204e40c44aa50";
+const DOCKER_IMAGE =
+    "ghcr.io/element-hq/matrix-authentication-service:main@sha256:da0f6f0cc9c2f7bf633865b7eac5803d5acedcf4e814daeca0dcb2b3518b21f4";
 
 /**
  * MatrixAuthenticationServiceContainer which freezes the docker digest to
@@ -19,6 +20,6 @@ const TAG = "main@sha256:d0d03f9067c7977807131a9c739c9ed9f081063d1a1c21bee66204e
  */
 export class MatrixAuthenticationServiceContainer extends BaseMatrixAuthenticationServiceContainer {
     public constructor(db: StartedPostgreSqlContainer) {
-        super(db, `ghcr.io/element-hq/matrix-authentication-service:${TAG}`);
+        super(db, DOCKER_IMAGE);
     }
 }

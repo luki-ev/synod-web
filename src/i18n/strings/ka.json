@@ -980,7 +980,6 @@
         "ask_to_join": "ჩართეთ შეერთების მოთხოვნა",
         "automatic_debug_logs": "ავტომატურად გაგზავნეთ გამართვის ჟურნალი ნებისმიერი შეცდომის შესახებ",
         "automatic_debug_logs_decryption": "გაშიფვრის შეცდომებზე გამართვის ჟურნალების ავტომატურად გაგზავნა",
-        "automatic_debug_logs_key_backup": "გამართვის ჟურნალების ავტომატურად გაგზავნა, როდესაც გასაღების სარეზერვო ასლი არ მუშაობს",
         "beta_description": "რა არის შემდეგი%(brand)s ? ლაბორატორიები საუკეთესო საშუალებაა ნივთების ადრეულ ეტაპზე მისაღებად, ახალი ფუნქციების შესამოწმებლად და მათ ჩამოყალიბებაში, სანამ ისინი რეალურად დაიწყება.",
         "beta_feature": "ეს არის ბეტა ფუნქცია",
         "beta_feedback_leave_button": "ბეტადან გასასვლელად ეწვიეთ თქვენს პარამეტრებს.",
@@ -2383,11 +2382,6 @@
             "changed": "%(senderName)sშეიცვალა სიმძლავრის დონე%(powerLevelDiffText)s .",
             "user_from_to": "%(userId)sსაწყისი%(fromPowerLevel)s რომ%(toPowerLevel)s"
         },
-        "m.room.server_acl": {
-            "all_servers_banned": "🎉 ყველა სერვერს აკრძალულია მონაწილეობა! ეს ოთახი აღარ შეიძლება გამოყენებულ იქნას.",
-            "changed": "%(senderDisplayName)sშეცვალა სერვერის ACL-ები ამ ოთახისთვის.",
-            "set": "%(senderDisplayName)sდააყენეთ სერვერის ACL-ები ამ ოთახისთვის."
-        },
         "m.room.third_party_invite": {
             "revoked": "%(senderName)sგააუქმა ოთახში გაწევ %(targetDisplayName)s რიანების მოწვევა.",
             "sent": "%(senderName)sგაუგზავნა მოწვევა ო %(targetDisplayName)s თახში გაწევრიანების შესახებ."
@@ -2583,14 +2577,6 @@
             "rejoined_multiple": {
                 "one": "%(severalUsers)sდატოვა და შეუერთდა",
                 "other": "%(severalUsers)sდატოვა და შეუერთდა%(count)s ჯერ"
-            },
-            "server_acls": {
-                "one": "%(oneUser)sშეცვალა სერვერის ACL-ები",
-                "other": "%(oneUser)sშეცვალა სერვერის ACL-ები%(count)s ჯერ"
-            },
-            "server_acls_multiple": {
-                "one": "%(severalUsers)sშეცვალა სერვერის ACL-ები",
-                "other": "%(severalUsers)sშეცვალა სერვერის ACL დრო %(count)s"
             },
             "unbanned": {
                 "one": "იყო აკრძალული",

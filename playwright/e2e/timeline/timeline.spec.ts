@@ -949,6 +949,10 @@ test.describe("Timeline", () => {
             await page.getByRole("textbox", { name: "Edit message" }).press("Enter");
 
             const newTile = page.locator(".mx_EventTile");
+            const codeBlock = newTile.locator(".mx_EventTile_pre_container");
+            await expect(codeBlock).toBeVisible();
+            await codeBlock.hover();
+            await expect(newTile.locator(".mx_EventTile_copyButton")).toBeVisible();
             await expect(newTile).toMatchScreenshot("edited-code-block.png", {
                 css: `
                     .mx_MessageTimestamp {
@@ -1003,6 +1007,34 @@ test.describe("Timeline", () => {
             // Check that the video is now hidden.
             await expect(page.getByRole("button", { name: "Show video" })).toBeVisible();
             await expect(page.locator("video")).not.toBeVisible();
+        });
+
+        test("should insert a mention when clicking sender profile in timeline", async ({
+            page,
+            app,
+            homeserver,
+            room,
+        }) => {
+            const senderDisplayName = "SenderBot";
+            const messageFromSender = "message from sender";
+
+            const bot = new Bot(page, homeserver, {
+                displayName: senderDisplayName,
+                autoAcceptInvites: false,
+            });
+            await bot.prepareClient();
+            await app.client.inviteUser(room.roomId, bot.credentials.userId);
+            await bot.joinRoom(room.roomId);
+            await bot.sendMessage(room.roomId, messageFromSender);
+
+            await app.viewRoomById(room.roomId);
+
+            const senderMessageTile = getEventTilesWithBodies(page).filter({ hasText: messageFromSender }).first();
+            await expect(senderMessageTile).toBeVisible();
+
+            await senderMessageTile.locator(".mx_DisambiguatedProfile").click();
+
+            await expect(app.getComposerField().getByText(senderDisplayName)).toBeVisible();
         });
     });
 

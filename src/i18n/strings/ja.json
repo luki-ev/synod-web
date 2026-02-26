@@ -1184,7 +1184,6 @@
     "labs": {
         "automatic_debug_logs": "エラーが生じた際に、自動的にデバッグログを送信",
         "automatic_debug_logs_decryption": "復号化エラーが生じた際に、自動的にデバッグログを送信",
-        "automatic_debug_logs_key_backup": "鍵のバックアップが機能していない際に、自動的にデバッグログを送信",
         "beta_description": "%(brand)sのラボでは、最新の機能をいち早く使用したり、テストしたりできるほか、機能が実際にリリースされる前の改善作業を支援することができます。",
         "beta_feature": "この機能はベータ版です",
         "beta_feedback_leave_button": "ベータ版の使用を終了するには、設定を開いてください。",
@@ -2765,11 +2764,6 @@
             "changed": "%(senderName)sが%(powerLevelDiffText)s",
             "user_from_to": "%(userId)sの権限レベルを%(fromPowerLevel)sから%(toPowerLevel)sに変更しました。"
         },
-        "m.room.server_acl": {
-            "all_servers_banned": "🎉全てのサーバーの参加がブロックされています！このルームは使用できなくなりました。",
-            "changed": "%(senderDisplayName)sがこのルームのサーバーアクセス制御リストを変更しました。",
-            "set": "%(senderDisplayName)sがこのルームのサーバーアクセス制御リストを設定しました。"
-        },
         "m.room.third_party_invite": {
             "revoked": "%(senderName)sが%(targetDisplayName)sへのルームの招待を取り消しました。",
             "sent": "%(senderName)sが%(targetDisplayName)sをこのルームに招待しました。"
@@ -2963,14 +2957,6 @@
             "rejoined_multiple": {
                 "other": "%(severalUsers)sが%(count)s回退出し再参加しました",
                 "one": "%(severalUsers)sが退出し再参加しました"
-            },
-            "server_acls": {
-                "one": "%(oneUser)sがサーバーのアクセス制御リストを変更しました",
-                "other": "%(oneUser)sがサーバーのアクセス制御リストを%(count)s回変更しました"
-            },
-            "server_acls_multiple": {
-                "one": "%(severalUsers)sがサーバーのアクセス制御リストを変更しました",
-                "other": "%(severalUsers)sがサーバーのアクセス制御リストを%(count)s回変更しました"
             },
             "unbanned": {
                 "other": "が%(count)s回ブロック解除されました",

@@ -5,9 +5,10 @@ SPDX-License-Identifier: AGPL-3.0-only OR GPL-3.0-only OR LicenseRef-Element-Com
 Please see LICENSE files in the repository root for full details.
 */
 
-import { SynapseContainer as BaseSynapseContainer } from "@element-hq/element-web-playwright-common/lib/testcontainers";
+import { SynapseContainer as BaseSynapseContainer } from "@element-hq/element-web-playwright-common/lib/testcontainers/index.js";
 
-const TAG = "develop@sha256:6abccb8d1b6a050897025787cc8c719a16219418e970ec3f2ac2b8d556681b6b";
+const DOCKER_IMAGE =
+    "ghcr.io/element-hq/synapse:develop@sha256:9e515689caf849b9c66bee33465c1dcd2b46adac2b781db0e98a9571d32c89a2";
 
 /**
  * SynapseContainer which freezes the docker digest to stabilise tests,
@@ -15,6 +16,6 @@ const TAG = "develop@sha256:6abccb8d1b6a050897025787cc8c719a16219418e970ec3f2ac2
  */
 export class SynapseContainer extends BaseSynapseContainer {
     public constructor() {
-        super(`ghcr.io/element-hq/synapse:${TAG}`);
+        super(DOCKER_IMAGE);
     }
 }

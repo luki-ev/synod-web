@@ -352,7 +352,6 @@ export interface Settings {
     "developerMode": IBaseSetting<boolean>;
     "automaticErrorReporting": IBaseSetting<boolean>;
     "automaticDecryptionErrorReporting": IBaseSetting<boolean>;
-    "automaticKeyBackNotEnabledReporting": IBaseSetting<boolean>;
     "debug_scroll_panel": IBaseSetting<boolean>;
     "debug_timeline_panel": IBaseSetting<boolean>;
     "debug_registration": IBaseSetting<boolean>;
@@ -541,10 +540,13 @@ export const SETTINGS: Settings = {
         supportedLevelsAreOrdered: true,
         default: false,
     },
+    // Defaulted to true Feb 26, intention is to remove entirely, all being well,
+    // as this fixes bugs where display name / avatar are missing and also makes
+    // Element Web consistent with Element X.
     "useOnlyCurrentProfiles": {
         supportedLevels: LEVELS_ACCOUNT_SETTINGS,
         displayName: _td("settings|disable_historical_profile"),
-        default: false,
+        default: true,
     },
     "mjolnirRooms": {
         supportedLevels: [SettingLevel.ACCOUNT],
@@ -1320,11 +1322,6 @@ export const SETTINGS: Settings = {
         default: false,
         controller: new ReloadOnChangeController(),
     },
-    "automaticKeyBackNotEnabledReporting": {
-        displayName: _td("labs|automatic_debug_logs_key_backup"),
-        supportedLevels: LEVELS_DEVICE_ONLY_SETTINGS_WITH_CONFIG,
-        default: false,
-    },
     "debug_scroll_panel": {
         supportedLevels: LEVELS_DEVICE_ONLY_SETTINGS,
         default: false,
@@ -1440,10 +1437,6 @@ export const SETTINGS: Settings = {
         default: true,
     },
     [UIFeature.TimelineEnableRelativeDates]: {
-        supportedLevels: LEVELS_UI_FEATURE,
-        default: true,
-    },
-    [UIFeature.BulkUnverifiedSessionsReminder]: {
         supportedLevels: LEVELS_UI_FEATURE,
         default: true,
     },
