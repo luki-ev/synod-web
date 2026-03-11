@@ -17,20 +17,21 @@ jobs:
     - uses: actions/setup-node@v6
       with:
         node-version-file: '.node-version'
-    - run: pnpm install --frozen-lockfile
+    - run: ./scripts/layered.sh
     - run: VERSION=$(scripts/get-version-from-git.sh) pnpm dist
+      working-directory: apps/web
       env:
         RIOT_OG_IMAGE_URL: https://web.synod.im/themes/element/img/logos/synod-im-logo-color.png
         CI_PACKAGE: true
     - uses: softprops/action-gh-release@v2
       with:
-        files: dist/*.tar.gz
+        files: apps/web/dist/*.tar.gz
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - uses: actions/upload-artifact@v6
       with:
         name: synod-web
-        path: webapp
+        path: app/web/webapp
 
   deploy-to-staging:
     needs: build
