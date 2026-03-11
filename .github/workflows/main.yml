@@ -31,7 +31,7 @@ jobs:
     - uses: actions/upload-artifact@v6
       with:
         name: synod-web
-        path: app/web/webapp
+        path: apps/web/webapp
 
   deploy-to-staging:
     needs: build
