@@ -66,7 +66,7 @@ describe("RoomListViewViewModel", () => {
             viewModel = new RoomListViewViewModel({ client: matrixClient });
 
             const snapshot = viewModel.getSnapshot();
-            expect(snapshot.roomIds).toEqual(["!room1:server", "!room2:server", "!room3:server"]);
+            expect(snapshot.sections[0].roomIds).toEqual(["!room1:server", "!room2:server", "!room3:server"]);
             expect(snapshot.isRoomListEmpty).toBe(false);
             expect(snapshot.isLoadingRooms).toBe(false);
             expect(snapshot.roomListState.spaceId).toBe("home");
@@ -82,7 +82,7 @@ describe("RoomListViewViewModel", () => {
 
             viewModel = new RoomListViewViewModel({ client: matrixClient });
 
-            expect(viewModel.getSnapshot().roomIds).toEqual([]);
+            expect(viewModel.getSnapshot().sections[0].roomIds).toEqual([]);
             expect(viewModel.getSnapshot().isRoomListEmpty).toBe(true);
         });
 
@@ -106,7 +106,7 @@ describe("RoomListViewViewModel", () => {
 
             RoomListStoreV3.instance.emit(RoomListStoreV3Event.ListsUpdate);
 
-            expect(viewModel.getSnapshot().roomIds).toEqual([
+            expect(viewModel.getSnapshot().sections[0].roomIds).toEqual([
                 "!room1:server",
                 "!room2:server",
                 "!room3:server",
@@ -156,7 +156,7 @@ describe("RoomListViewViewModel", () => {
             RoomListStoreV3.instance.emit(RoomListStoreV3Event.ListsUpdate);
 
             expect(viewModel.getSnapshot().roomListState.spaceId).toBe("!space:server");
-            expect(viewModel.getSnapshot().roomIds).toEqual(["!room1:server", "!room2:server"]);
+            expect(viewModel.getSnapshot().sections[0].roomIds).toEqual(["!room1:server", "!room2:server"]);
         });
 
         it("should clear view models when space changes", () => {
@@ -179,6 +179,25 @@ describe("RoomListViewViewModel", () => {
 
             expect(disposeSpy1).toHaveBeenCalled();
             expect(disposeSpy2).toHaveBeenCalled();
+        });
+
+        it("should clear roomsMap when space changes and repopulate with new rooms", () => {
+            viewModel = new RoomListViewViewModel({ client: matrixClient });
+
+            const newSpaceRoom = mkStubRoom("!spaceroom:server", "Space Room", matrixClient);
+
+            jest.spyOn(RoomListStoreV3.instance, "getSortedRoomsInActiveSpace").mockReturnValue({
+                spaceId: "!space:server",
+                rooms: [newSpaceRoom],
+            });
+            jest.spyOn(SpaceStore.instance, "getLastSelectedRoomIdForSpace").mockReturnValue(null);
+
+            RoomListStoreV3.instance.emit(RoomListStoreV3Event.ListsUpdate);
+
+            // New space room should be accessible
+            expect(() => viewModel.getRoomItemViewModel("!spaceroom:server")).not.toThrow();
+            // Old rooms from the home space should not be accessible
+            expect(() => viewModel.getRoomItemViewModel("!room1:server")).toThrow();
         });
     });
 
@@ -240,7 +259,7 @@ describe("RoomListViewViewModel", () => {
 
             // Active room should still be at index 1 (sticky behavior)
             expect(viewModel.getSnapshot().roomListState.activeRoomIndex).toBe(1);
-            expect(viewModel.getSnapshot().roomIds[1]).toBe("!room2:server");
+            expect(viewModel.getSnapshot().sections[0].roomIds[1]).toBe("!room2:server");
         });
 
         it("should not apply sticky behavior when user changes rooms", async () => {
@@ -283,7 +302,7 @@ describe("RoomListViewViewModel", () => {
             viewModel.onToggleFilter("unread");
 
             expect(viewModel.getSnapshot().activeFilterId).toBe("unread");
-            expect(viewModel.getSnapshot().roomIds).toEqual(["!room1:server"]);
+            expect(viewModel.getSnapshot().sections[0].roomIds).toEqual(["!room1:server"]);
         });
 
         it("should toggle filter off", () => {
@@ -307,7 +326,11 @@ describe("RoomListViewViewModel", () => {
             viewModel.onToggleFilter("unread");
 
             expect(viewModel.getSnapshot().activeFilterId).toBeUndefined();
-            expect(viewModel.getSnapshot().roomIds).toEqual(["!room1:server", "!room2:server", "!room3:server"]);
+            expect(viewModel.getSnapshot().sections[0].roomIds).toEqual([
+                "!room1:server",
+                "!room2:server",
+                "!room3:server",
+            ]);
         });
     });
 
@@ -336,6 +359,49 @@ describe("RoomListViewViewModel", () => {
             expect(() => {
                 viewModel.getRoomItemViewModel("!nonexistent:server");
             }).toThrow();
+        });
+
+        it("should not throw when requesting view model for a room removed from the list but still in roomsMap", () => {
+            viewModel = new RoomListViewViewModel({ client: matrixClient });
+
+            // Normal list update removes room2 from the list
+            jest.spyOn(RoomListStoreV3.instance, "getSortedRoomsInActiveSpace").mockReturnValue({
+                spaceId: "home",
+                rooms: [room1, room3],
+            });
+
+            RoomListStoreV3.instance.emit(RoomListStoreV3Event.ListsUpdate);
+
+            expect(() => viewModel.getRoomItemViewModel("!room2:server")).not.toThrow();
+        });
+
+        it("should throw when requesting view model for a room from old space after space change", () => {
+            viewModel = new RoomListViewViewModel({ client: matrixClient });
+
+            const spaceRoom = mkStubRoom("!newroom:server", "New Room", matrixClient);
+
+            // Space change: new space only has spaceRoom
+            jest.spyOn(RoomListStoreV3.instance, "getSortedRoomsInActiveSpace").mockReturnValue({
+                spaceId: "!space:server",
+                rooms: [spaceRoom],
+            });
+            jest.spyOn(SpaceStore.instance, "getLastSelectedRoomIdForSpace").mockReturnValue(null);
+
+            RoomListStoreV3.instance.emit(RoomListStoreV3Event.ListsUpdate);
+
+            expect(() => viewModel.getRoomItemViewModel("!room1:server")).toThrow(
+                "Room !room1:server not found in roomsMap",
+            );
+        });
+
+        it("should recover when roomsMap is stale but roomsResult has the room", () => {
+            viewModel = new RoomListViewViewModel({ client: matrixClient });
+
+            // Manually clear roomsMap to simulate stale cache, but keep roomsResult intact
+            (viewModel as any).roomsMap.clear();
+
+            // getRoomItemViewModel should retry by re-populating roomsMap from roomsResult
+            expect(() => viewModel.getRoomItemViewModel("!room1:server")).not.toThrow();
         });
 
         it("should dispose view models for rooms no longer visible", () => {

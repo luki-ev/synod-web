@@ -266,7 +266,7 @@ export default class HTMLExporter extends Exporter {
         try {
             const dateSeparator = (
                 <li key={ts}>
-                    <DateSeparatorView vm={dateSeparatorViewModel} />
+                    <DateSeparatorView vm={dateSeparatorViewModel} className="mx_TimelineSeparator" />
                 </li>
             );
             return this.renderToStaticMarkupWithProviders(dateSeparator);
@@ -348,7 +348,7 @@ export default class HTMLExporter extends Exporter {
             const mxc = mxEv.getContent().url ?? mxEv.getContent().file?.url;
             eventTileMarkup = eventTileMarkup.split(mxc).join(filePath);
         }
-        eventTileMarkup = eventTileMarkup.replace(/<span class="mx_MFileBody_info_icon".*?>.*?<\/span>/, "");
+        eventTileMarkup = eventTileMarkup.replace(/<span class="mx_MFileBody".*?>.*?<\/span>/, "");
         if (hasAvatar) {
             eventTileMarkup = eventTileMarkup.replace(
                 encodeURI(avatarUrl).replace(/&/g, "&amp;"),

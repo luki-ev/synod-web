@@ -12,6 +12,7 @@ import { KeyIcon, ErrorSolidIcon, SettingsSolidIcon } from "@vector-im/compound-
 import { type ComponentType } from "react";
 import { type Interaction as InteractionEvent } from "@matrix-org/analytics-events/types/typescript/Interaction";
 import { logger } from "matrix-js-sdk/src/logger";
+import { DecryptionKeyDoesNotMatchError } from "matrix-js-sdk/src/crypto-api";
 
 import Modal from "../Modal";
 import { _t } from "../languageHandler";
@@ -83,7 +84,7 @@ const getSetupCaption = (state: DeviceStateForToast): string => {
         case "set_up_recovery":
             return _t("action|continue");
         case "verify_this_session":
-            return _t("action|verify");
+            return _t("action|continue");
         case "key_storage_out_of_sync":
             return _t("encryption|enter_recovery_key");
         case "turn_on_key_storage":
@@ -207,7 +208,18 @@ export const showToast = (state: DeviceStateForToast): void => {
                             if (needsBackupReset) {
                                 await resetKeyBackupAndWait(crypto);
                             } else if (await matrixClient.isKeyBackupKeyStored()) {
-                                await crypto.loadSessionBackupPrivateKeyFromSecretStorage();
+                                try {
+                                    await crypto.loadSessionBackupPrivateKeyFromSecretStorage();
+                                } catch (error: any) {
+                                    if (error instanceof DecryptionKeyDoesNotMatchError) {
+                                        myLogger.error(
+                                            "SetupEncryptionToast: decryption key does not match the public backup. Replacing.",
+                                        );
+                                        await resetKeyBackupAndWait(crypto);
+                                    } else {
+                                        throw error;
+                                    }
+                                }
                             }
                         });
                     });

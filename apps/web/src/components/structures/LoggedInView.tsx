@@ -33,7 +33,7 @@ import { SettingLevel } from "../../settings/SettingLevel";
 import ResizeHandle from "../views/elements/ResizeHandle";
 import { CollapseDistributor, Resizer } from "../../resizer";
 import PlatformPeg from "../../PlatformPeg";
-import { DefaultTagID } from "../../stores/room-list/models";
+import { DefaultTagID } from "../../stores/room-list-v3/skip-list/tag";
 import { hideToast as hideServerLimitToast, showToast as showServerLimitToast } from "../../toasts/ServerLimitToast";
 import { Action } from "../../dispatcher/actions";
 import LeftPanel from "./LeftPanel";
@@ -190,6 +190,9 @@ class LoggedInView extends React.Component<IProps, IState> {
             SettingsStore.watchSetting("userTimezonePublish", null, this.onTimezoneUpdate),
             SettingsStore.watchSetting("userTimezone", null, this.onTimezoneUpdate),
         ];
+        // Call this initially to ensure that we set the correct timezone, if the
+        // system time has changed between sessions.
+        void this.onTimezoneUpdate();
 
         this.loadResizer();
 

@@ -31,12 +31,13 @@ import RightPanelStore from "../../../../../src/stores/right-panel/RightPanelSto
 import WidgetStore, { type IApp } from "../../../../../src/stores/WidgetStore";
 import ActiveWidgetStore from "../../../../../src/stores/ActiveWidgetStore";
 import AppTile from "../../../../../src/components/views/elements/AppTile";
-import { Container, WidgetLayoutStore } from "../../../../../src/stores/widgets/WidgetLayoutStore";
+import { type Container, WidgetLayoutStore } from "../../../../../src/stores/widgets/WidgetLayoutStore";
 import AppsDrawer from "../../../../../src/components/views/rooms/AppsDrawer";
 import { ElementWidgetCapabilities } from "../../../../../src/stores/widgets/ElementWidgetCapabilities";
 import { ElementWidget, type WidgetMessaging } from "../../../../../src/stores/widgets/WidgetMessaging";
 import { WidgetMessagingStore } from "../../../../../src/stores/widgets/WidgetMessagingStore";
 import { ModuleRunner } from "../../../../../src/modules/ModuleRunner";
+import { ModuleApi } from "../../../../../src/modules/Api";
 import { RoomPermalinkCreator } from "../../../../../src/utils/permalinks/Permalinks";
 import { SdkContextClass } from "../../../../../src/contexts/SDKContext";
 
@@ -302,7 +303,7 @@ describe("AppTile", () => {
                 return {
                     widgets: {
                         1: {
-                            container: Container.Top,
+                            container: "top",
                         },
                     },
                 };
@@ -333,7 +334,7 @@ describe("AppTile", () => {
         mockSettings.mockRestore();
         act(() => {
             // Move widget to center
-            WidgetLayoutStore.instance.moveToContainer(r1, app1, Container.Center);
+            WidgetLayoutStore.instance.moveToContainer(r1, app1, "center");
         });
 
         expect(renderResult.getByText("Example 1")).toBeInTheDocument();
@@ -376,7 +377,7 @@ describe("AppTile", () => {
             );
             await waitForElementToBeRemoved(() => renderResult.queryByRole("progressbar"));
             await userEvent.click(renderResult.getByLabelText("Minimise"));
-            expect(moveToContainerSpy).toHaveBeenCalledWith(r1, app1, Container.Right);
+            expect(moveToContainerSpy).toHaveBeenCalledWith(r1, app1, "right");
         });
 
         it("clicking 'maximise' should send the widget to the center", async () => {
@@ -387,7 +388,7 @@ describe("AppTile", () => {
             );
             await waitForElementToBeRemoved(() => renderResult.queryByRole("progressbar"));
             await userEvent.click(renderResult.getByLabelText("Maximise"));
-            expect(moveToContainerSpy).toHaveBeenCalledWith(r1, app1, Container.Center);
+            expect(moveToContainerSpy).toHaveBeenCalledWith(r1, app1, "center");
         });
 
         it("should render permission request", async () => {
@@ -426,11 +427,35 @@ describe("AppTile", () => {
             expect(renderResult.queryByRole("button", { name: "Continue" })).not.toBeInTheDocument();
         });
 
+        it("should auto-approve preload via new widget lifecycle API", async () => {
+            // Legacy module API denies preload
+            jest.spyOn(ModuleRunner.instance, "invoke").mockImplementation((lifecycleEvent, opts, widgetInfo) => {
+                if (lifecycleEvent === WidgetLifecycle.PreLoadRequest && (widgetInfo as WidgetInfo).id === app1.id) {
+                    (opts as ApprovalOpts).approved = false;
+                }
+            });
+
+            // New API approves preload
+            jest.spyOn(ModuleApi.instance.widgetLifecycle, "preapprovePreload").mockResolvedValue(true);
+
+            // userId and creatorUserId are different so legacy path would show "Continue"
+            const renderResult = render(
+                <MatrixClientContext.Provider value={cli}>
+                    <AppTile key={app1.id} app={app1} room={r1} userId="@user1" creatorUserId="@userAnother" />
+                </MatrixClientContext.Provider>,
+            );
+
+            // The new API runs async in componentDidMount, so wait for it to take effect
+            await waitFor(() => {
+                expect(renderResult.queryByRole("button", { name: "Continue" })).not.toBeInTheDocument();
+            });
+        });
+
         describe("for a maximised (centered) widget", () => {
             beforeEach(() => {
                 jest.spyOn(WidgetLayoutStore.instance, "isInContainer").mockImplementation(
                     (room: Room | null, widget: IWidget, container: Container) => {
-                        return room === r1 && widget === app1 && container === Container.Center;
+                        return room === r1 && widget === app1 && container === "center";
                     },
                 );
             });
@@ -447,7 +472,7 @@ describe("AppTile", () => {
                 );
                 await waitForElementToBeRemoved(() => renderResult.queryByRole("progressbar"));
                 await userEvent.click(renderResult.getByLabelText("Un-maximise"));
-                expect(moveToContainerSpy).toHaveBeenCalledWith(r1, app1, Container.Top);
+                expect(moveToContainerSpy).toHaveBeenCalledWith(r1, app1, "top");
             });
         });
 
