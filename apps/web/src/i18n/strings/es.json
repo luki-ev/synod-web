@@ -15,8 +15,7 @@
         "room_name": "Sala %(name)s",
         "room_status_bar": "Barra de estado de la sala",
         "seek_bar_label": "Barra de búsqueda de audio",
-        "unread_messages": "Mensajes sin leer.",
-        "user_menu": "Menú del Usuario"
+        "unread_messages": "Mensajes sin leer."
     },
     "a11y_jump_first_unread_room": "Saltar a la primera sala sin leer.",
     "action": {
@@ -32,7 +31,6 @@
         "cancel": "Cancelar",
         "change": "Cambiar",
         "clear": "Borrar",
-        "click": "Clic",
         "click_to_copy": "Haz clic para copiar",
         "close": "Cerrar",
         "collapse": "Encoger",
@@ -66,7 +64,6 @@
         "go": "Ir",
         "go_back": "Atrás",
         "got_it": "Aceptar",
-        "hide": "Ocultar",
         "hide_advanced": "Ocultar ajustes avanzados",
         "hold": "Poner en espera",
         "ignore": "Ignorar",
@@ -343,7 +340,6 @@
         "sign_in_instead_prompt": "¿Ya tienes una cuenta? <a>Inicia sesión aquí</a>",
         "sign_in_or_register": "Iniciar sesión o Crear una cuenta",
         "sign_in_or_register_description": "Entra con tu cuenta si ya tienes una o crea una nueva para continuar.",
-        "sign_in_prompt": "¿Ya tienes una cuenta? <a>Iniciar sesión</a>",
         "sign_in_with_sso": "Ingresar con un Registro Único",
         "signing_in": "Iniciando sesión…",
         "soft_logout": {
@@ -783,7 +779,6 @@
         },
         "state_key": "Clave de estado",
         "title": "Herramientas de desarrollo",
-        "toggle_event": "activar o desactivar el evento",
         "toolbox": "Caja de herramientas",
         "use_at_own_risk": "Esta interfaz NO comprueba los tipos de dato de los valores. Usar bajo tu responsabilidad.",
         "value": "Valor",
@@ -1142,7 +1137,6 @@
         "impossible_dialog_title": "Integraciones no están permitidas"
     },
     "invite": {
-        "ask_anyway_never_warn_label": "Enviar mensaje directo de todos modos y no avisar más",
         "email_caption": "Invitar a través de correo electrónico",
         "email_use_default_is": "Usar un servidor de identidad para invitar a través de correo electrónico. <default>. Usar (%(defaultIdentityServerName)s)</default>o seleccione en <settings>Ajustes</settings>.",
         "email_use_is": "Utilice un servidor de identidad para invitar por correo electrónico. Gestionar en <settings>Ajustes</settings>.",
@@ -1270,8 +1264,6 @@
         "upload_file": "Cargar un archivo"
     },
     "labs": {
-        "automatic_debug_logs": "Mandar automáticamente los registros de depuración cuando ocurra cualquier error",
-        "automatic_debug_logs_decryption": "Enviar los registros de depuración automáticamente de fallos al descifrar",
         "beta_description": "¿Qué novedades se esperan en %(brand)s? La sección de experimentos es la mejor manera de ver las cosas antes de que se publiquen, probar nuevas funcionalidades y ayudar a mejorarlas antes de su lanzamiento.",
         "beta_feature": "Esta funcionalidad está en beta",
         "beta_feedback_leave_button": "Para salir de la beta, ve a tus ajustes.",
@@ -1529,7 +1521,6 @@
         "restricted": "Restringido"
     },
     "powered_by_matrix": "Funciona con Matrix",
-    "powered_by_matrix_with_logo": "Conversaciones y colaboración descentralizadas y cifradas gracias a $matrixLogo",
     "presence": {
         "away": "Lejos",
         "busy": "Ocupado",
@@ -1852,8 +1843,6 @@
             "aliases_section": "Direcciones de la sala",
             "avatar_field_label": "Avatar de la sala",
             "canonical_alias_field_label": "Dirección principal",
-            "default_url_previews_off": "La vista previa de URLs se desactiva por defecto para los participantes de esta sala.",
-            "default_url_previews_on": "La vista previa de URLs se activa por defecto en los participantes de esta sala.",
             "description_space": "Edita los ajustes de tu espacio.",
             "error_creating_alias_description": "Hubo un error al crear esa dirección. Es posible que el servidor no lo permita o que haya ocurrido una falla temporal.",
             "error_creating_alias_title": "Error al crear la dirección",
@@ -1880,12 +1869,7 @@
             "published_aliases_explainer_space": "Los espacios publicados pueden usarse por cualquiera, independientemente de su servidor base.",
             "published_aliases_section": "Direcciones publicadas",
             "save": "Guardar cambios",
-            "topic_field_label": "Asunto de la sala",
-            "url_preview_encryption_warning": "En salas cifradas como ésta, la vista previa de las URLs se desactiva por defecto para asegurar que el servidor base (donde se generan) no pueda recopilar información de los enlaces que veas en esta sala.",
-            "url_preview_explainer": "Cuando alguien incluya una dirección URL en su mensaje, puede mostrarse una vista previa para ofrecer información sobre el enlace, que incluirá el título, descripción, y una imagen del sitio web.",
-            "url_previews_section": "Vista previa de enlaces",
-            "user_url_previews_default_off": "Has <a>desactivado</a> la vista previa de URLs por defecto.",
-            "user_url_previews_default_on": "Has <a>activado</a> las vista previa de URLs por defecto."
+            "topic_field_label": "Asunto de la sala"
         },
         "notifications": {
             "browse_button": "Seleccionar",
@@ -2177,8 +2161,6 @@
             "spell_check_locale_placeholder": "Elige un idioma"
         },
         "inline_url_previews_default": "Activar la vista previa de URLs en línea por defecto",
-        "inline_url_previews_room": "Activar la vista previa de URLs por defecto para los participantes de esta sala",
-        "inline_url_previews_room_account": "Activar la vista previa de URLs en esta sala (solo para ti)",
         "insert_trailing_colon_mentions": "Inserta automáticamente dos puntos después de las menciones que hagas al principio de los mensajes",
         "jump_to_bottom_on_send": "Saltar abajo del todo al enviar un mensaje",
         "key_backup": {
@@ -2670,7 +2652,6 @@
             "one": "%(count)s respuesta",
             "other": "%(count)s respuestas"
         },
-        "error_start_thread_existing_relation": "No ha sido posible crear un hilo a partir de un evento con una relación existente",
         "my_threads": "Mis hilos",
         "my_threads_description": "Ver todos los hilos en los que has participado",
         "open_thread": "Abrir hilo",
@@ -2703,7 +2684,6 @@
         },
         "creation_summary_dm": "%(creator)s creó este mensaje directo.",
         "creation_summary_room": "Sala creada y configurada por %(creator)s.",
-        "download_action_decrypting": "Descifrando",
         "download_action_downloading": "Descargando",
         "edits": {
             "tooltip_label": "Última vez editado: %(date)s. Haz clic para ver los cambios.",
@@ -2755,8 +2735,7 @@
             "voice_call_unsupported": "%(senderName)s hizo una llamada de voz. (no soportada por este navegador)"
         },
         "m.file": {
-            "error_decrypting": "Error al descifrar adjunto",
-            "error_invalid": "Archivo inválido %(extra)s"
+            "error_decrypting": "Error al descifrar adjunto"
         },
         "m.image": {
             "error": "No es posible mostrar la imagen debido a un error",
@@ -2786,9 +2765,7 @@
         "m.poll.start": "%(senderName)s ha empezado una encuesta – %(pollQuestion)s",
         "m.room.avatar": {
             "changed": "%(senderDisplayName)s cambió la imagen de la sala.",
-            "changed_img": "%(senderDisplayName)s cambió el avatar de la sala a <img/>",
-            "lightbox_title": "%(senderDisplayName)s cambió el avatar para %(roomName)s",
-            "removed": "%(senderDisplayName)s eliminó el avatar de la sala."
+            "lightbox_title": "%(senderDisplayName)s cambió el avatar para %(roomName)s"
         },
         "m.room.canonical_alias": {
             "alt_added": {
@@ -2892,10 +2869,7 @@
             "removed": "componente %(widgetName)s eliminado por %(senderName)s"
         },
         "mab": {
-            "collapse_reply_chain": "Plegar citas",
             "copy_link_thread": "Copiar enlace al hilo",
-            "expand_reply_chain": "Expandir citas",
-            "label": "Acciones de mensaje",
             "view_in_room": "Ver en la sala"
         },
         "mjolnir": {
@@ -2907,7 +2881,6 @@
             "created_rule_rooms": "%(senderName)s creó una regla bloqueando a salas que coinciden con %(glob)s por %(reason)s",
             "created_rule_servers": "%(senderName)s creó una regla bloqueando a servidores que coinciden con %(glob)s por %(reason)s",
             "created_rule_users": "%(senderName)s creó una regla bloqueando a usuarios que coinciden con %(glob)s por %(reason)s",
-            "message_hidden": "Ha ignorado a esta cuenta, así que su mensaje está oculto. <a>Ver de todos modos.</a>",
             "removed_rule": "%(senderName)s eliminó una regla correspondiente a %(glob)s",
             "removed_rule_rooms": "%(senderName)s eliminó la regla que bloquea a salas que coinciden con %(glob)s",
             "removed_rule_servers": "%(senderName)s eliminó la regla que bloquea a servidores que coinciden con %(glob)s",
@@ -3080,14 +3053,7 @@
             "one_user": "%(displayName)s está escribiendo…",
             "two_users": "%(names)s y %(lastPerson)s están escribiendo…"
         },
-        "undecryptable_tooltip": "No se ha podido descifrar este mensaje",
-        "url_preview": {
-            "close": "Cerrar vista previa",
-            "show_n_more": {
-                "one": "Ver otras %(count)s vistas previas",
-                "other": "Ver %(count)s otra vista previa"
-            }
-        }
+        "undecryptable_tooltip": "No se ha podido descifrar este mensaje"
     },
     "truncated_list_n_more": {
         "other": "Y %(count)s más…"
@@ -3189,12 +3155,6 @@
         "verify_button": "Verificar usuario",
         "verify_explainer": "Para mayor seguridad, verifica a este usuario comprobando un código temporal vez dos de tus dispositivos."
     },
-    "user_menu": {
-        "link_new_device": "Vincular un dispositivo nuevo",
-        "settings": "Ajustes",
-        "switch_theme_dark": "Cambiar al tema oscuro",
-        "switch_theme_light": "Cambiar al tema claro"
-    },
     "voip": {
         "already_in_call": "Ya en una llamada",
         "already_in_call_person": "Ya estás en una llamada con esta persona.",
@@ -3278,12 +3238,10 @@
         "user_busy_description": "La persona a la que has llamado está ocupada.",
         "user_is_presenting": "%(sharerName)s está presentando",
         "video_call": "Llamada de vídeo",
-        "video_call_started": "Videollamada iniciada",
         "voice_call": "Llamada de voz",
         "you_are_presenting": "Estás presentando"
     },
     "web_default_device_name": "%(appName)s: %(browserName)s en %(osName)s",
-    "welcome_to_element": "Te damos la bienvenida a Element",
     "widget": {
         "added_by": "Accesorio añadido por",
         "capabilities_dialog": {

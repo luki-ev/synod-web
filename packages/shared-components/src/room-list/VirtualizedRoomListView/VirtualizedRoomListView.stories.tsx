@@ -9,10 +9,10 @@ import React, { type JSX } from "react";
 import { fn } from "storybook/test";
 
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import type { Room } from "../RoomListItemView";
+import type { Room } from "./RoomListItemWrapper/RoomListItemView";
 import { VirtualizedRoomListView, type RoomListViewState } from "./VirtualizedRoomListView";
-import type { RoomListSnapshot, RoomListViewActions } from "../RoomListView";
-import { useMockedViewModel } from "../../viewmodel";
+import type { RoomListViewSnapshot, RoomListViewActions } from "../RoomListView";
+import { useMockedViewModel } from "../../core/viewmodel";
 import { withViewDocs } from "../../../.storybook/withViewDocs";
 import type { FilterId } from "../RoomListPrimaryFilters";
 import {
@@ -23,7 +23,8 @@ import {
     mock10RoomsSections,
 } from "../story-mocks";
 
-type RoomListStoryProps = RoomListSnapshot & RoomListViewActions & { renderAvatar: (room: Room) => React.ReactElement };
+type RoomListStoryProps = RoomListViewSnapshot &
+    RoomListViewActions & { renderAvatar: (room: Room) => React.ReactElement };
 
 // Wrapper component that creates a mocked ViewModel
 const RoomListWrapperImpl = ({
@@ -33,7 +34,9 @@ const RoomListWrapperImpl = ({
     getRoomItemViewModel,
     getSectionHeaderViewModel,
     updateVisibleRooms,
+    closeToast,
     renderAvatar: renderAvatarProp,
+    changeRoomSection,
     ...rest
 }: RoomListStoryProps): JSX.Element => {
     const vm = useMockedViewModel(rest, {
@@ -43,6 +46,8 @@ const RoomListWrapperImpl = ({
         getRoomItemViewModel,
         getSectionHeaderViewModel,
         updateVisibleRooms,
+        closeToast,
+        changeRoomSection,
     });
 
     return (
@@ -81,6 +86,8 @@ const meta = {
         updateVisibleRooms: fn(),
         renderAvatar,
         isFlatList: true,
+        closeToast: fn(),
+        changeRoomSection: fn(),
     },
     parameters: {
         design: {

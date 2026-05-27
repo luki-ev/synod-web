@@ -8,9 +8,14 @@
 import React from "react";
 import { fn } from "storybook/test";
 
-import { type Room, type RoomItemViewModel, type RoomListItemSnapshot, RoomNotifState } from "./RoomListItemView";
-import { type RoomListSectionHeaderViewModel } from "./RoomListSectionHeaderView";
-import { MockViewModel } from "../viewmodel";
+import {
+    type Room,
+    type RoomListItemViewModel,
+    type RoomListItemViewSnapshot,
+    RoomNotifState,
+} from "./VirtualizedRoomListView/RoomListItemWrapper/RoomListItemView";
+import { type RoomListSectionHeaderViewModel } from "./VirtualizedRoomListView/RoomListSectionHeaderView";
+import { MockViewModel } from "../core/viewmodel";
 
 /**
  * Mock avatar component for stories
@@ -74,7 +79,7 @@ const roomNames = [
 /**
  * Create a mock room item snapshot for stories
  */
-export const createMockRoomSnapshot = (id: string, name: string, index: number): RoomListItemSnapshot => ({
+export const createMockRoomSnapshot = (id: string, name: string, index: number): RoomListItemViewSnapshot => ({
     id,
     room: { name },
     name,
@@ -100,9 +105,11 @@ export const createMockRoomSnapshot = (id: string, name: string, index: number):
     canMarkAsRead: false,
     canMarkAsUnread: true,
     roomNotifState: RoomNotifState.AllMessages,
+    canMoveToSection: true,
+    sections: [],
 });
 
-export function createMockRoomItemViewModel(roomId: string, name: string, index: number): RoomItemViewModel {
+export function createMockRoomItemViewModel(roomId: string, name: string, index: number): RoomListItemViewModel {
     const snapshot = createMockRoomSnapshot(roomId, name, index);
     return {
         getSnapshot: () => snapshot,
@@ -116,14 +123,16 @@ export function createMockRoomItemViewModel(roomId: string, name: string, index:
         onCopyRoomLink: fn(),
         onLeaveRoom: fn(),
         onSetRoomNotifState: fn(),
+        onCreateSection: fn(),
+        onToggleSection: fn(),
     };
 }
 
 /**
  * Create a mock getRoomItemViewModel function for stories
  */
-export const createGetRoomItemViewModel = (roomIds: string[]): ((roomId: string) => RoomItemViewModel) => {
-    const viewModels = new Map<string, RoomItemViewModel>();
+export const createGetRoomItemViewModel = (roomIds: string[]): ((roomId: string) => RoomListItemViewModel) => {
+    const viewModels = new Map<string, RoomListItemViewModel>();
     roomIds.forEach((roomId, index) => {
         const name = roomNames[index % roomNames.length];
         viewModels.set(roomId, createMockRoomItemViewModel(roomId, name, index));

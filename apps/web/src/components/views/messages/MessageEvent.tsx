@@ -7,7 +7,7 @@ Please see LICENSE files in the repository root for full details.
 */
 
 import mime from "mime";
-import React, { type JSX, createRef, useContext, useEffect } from "react";
+import React, { createRef, type JSX, useEffect } from "react";
 import { logger } from "matrix-js-sdk/src/logger";
 import {
     EventType,
@@ -18,28 +18,29 @@ import {
     M_POLL_START,
     type IContent,
 } from "matrix-js-sdk/src/matrix";
-import { useCreateAutoDisposedViewModel, DecryptionFailureBodyView } from "@element-hq/web-shared-components";
+import { MjolnirBodyView, UnknownBodyView, useCreateAutoDisposedViewModel } from "@element-hq/web-shared-components";
 
-import { LocalDeviceVerificationStateContext } from "../../../contexts/LocalDeviceVerificationStateContext";
 import SettingsStore from "../../../settings/SettingsStore";
 import { Mjolnir } from "../../../mjolnir/Mjolnir";
-import RedactedBody from "./RedactedBody";
-import UnknownBody from "./UnknownBody";
 import { type IMediaBody } from "./IMediaBody";
 import { MediaEventHelper } from "../../../utils/MediaEventHelper";
 import { type IBodyProps } from "./IBodyProps";
-import TextualBody from "./TextualBody";
-import MImageBody from "./MImageBody";
 import MVoiceOrAudioBody from "./MVoiceOrAudioBody";
-import MVideoBody from "./MVideoBody";
 import MStickerBody from "./MStickerBody";
 import MPollBody from "./MPollBody";
 import MLocationBody from "./MLocationBody";
-import MjolnirBody from "./MjolnirBody";
 import MBeaconBody from "./MBeaconBody";
 import { type GetRelationsForEvent, type IEventTileOps } from "../rooms/EventTile";
-import { DecryptionFailureBodyViewModel } from "../../../viewmodels/message-body/DecryptionFailureBodyViewModel";
-import { FileBodyViewFactory, renderMBody } from "./MBodyFactory";
+import { MjolnirBodyViewModel } from "../../../viewmodels/room/timeline/event-tile/body/MjolnirBodyViewModel";
+import {
+    DecryptionFailureBodyFactory,
+    FileBodyFactory,
+    ImageBodyFactory,
+    RedactedBodyFactory,
+    VideoBodyFactory,
+    renderMBody,
+} from "./MBodyFactory";
+import { TextualBodyFactory } from "./TextualBodyFactory";
 
 // onMessageAllowed is handled internally
 interface IProps extends Omit<IBodyProps, "onMessageAllowed" | "mediaEventHelper"> {
@@ -63,13 +64,13 @@ export interface IOperableEventTile {
 }
 
 const baseBodyTypes = new Map<string, React.ComponentType<IBodyProps>>([
-    [MsgType.Text, TextualBody],
-    [MsgType.Notice, TextualBody],
-    [MsgType.Emote, TextualBody],
-    [MsgType.Image, MImageBody],
-    [MsgType.File, (props: IBodyProps) => renderMBody(props, FileBodyViewFactory)!],
+    [MsgType.Text, TextualBodyFactory],
+    [MsgType.Notice, TextualBodyFactory],
+    [MsgType.Emote, TextualBodyFactory],
+    [MsgType.Image, ImageBodyFactory],
+    [MsgType.File, (props: IBodyProps) => renderMBody(props, FileBodyFactory)!],
     [MsgType.Audio, MVoiceOrAudioBody],
-    [MsgType.Video, MVideoBody],
+    [MsgType.Video, VideoBodyFactory],
 ]);
 const baseEvTypes = new Map<string, React.ComponentType<IBodyProps>>([
     [EventType.Sticker, MStickerBody],
@@ -78,6 +79,24 @@ const baseEvTypes = new Map<string, React.ComponentType<IBodyProps>>([
     [M_BEACON_INFO.name, MBeaconBody],
     [M_BEACON_INFO.altName, MBeaconBody],
 ]);
+
+function MjolnirBodyWrappedView({ mxEvent, onMessageAllowed, ref }: IBodyProps): JSX.Element {
+    const vm = useCreateAutoDisposedViewModel(() => new MjolnirBodyViewModel({ mxEvent, onMessageAllowed }));
+
+    useEffect(() => {
+        vm.setEvent(mxEvent);
+    }, [mxEvent, vm]);
+
+    useEffect(() => {
+        vm.setOnMessageAllowed(onMessageAllowed);
+    }, [onMessageAllowed, vm]);
+
+    return <MjolnirBodyView vm={vm} ref={ref} />;
+}
+
+function UnknownBody({ mxEvent, ref }: IBodyProps): JSX.Element {
+    return <UnknownBodyView text={mxEvent.getContent().body} ref={ref} className="mx_UnknownBody" />;
+}
 
 export default class MessageEvent extends React.Component<IProps> implements IMediaBody, IOperableEventTile {
     private body = createRef<React.Component | IOperableEventTile>();
@@ -246,11 +265,11 @@ export default class MessageEvent extends React.Component<IProps> implements IMe
         const content = this.props.mxEvent.getContent();
         const type = this.props.mxEvent.getType();
         const msgtype = content.msgtype;
-        let BodyType: React.ComponentType<IBodyProps> = RedactedBody;
+        let BodyType: React.ComponentType<IBodyProps> = RedactedBodyFactory;
         if (!this.props.mxEvent.isRedacted()) {
             // only resolve BodyType if event is not redacted
             if (this.props.mxEvent.isDecryptionFailure()) {
-                BodyType = DecryptionFailureBodyWrapper;
+                BodyType = DecryptionFailureBodyFactory;
             } else if (type && this.evTypes.has(type)) {
                 BodyType = this.evTypes.get(type)!;
             } else if (msgtype && this.bodyTypes.has(msgtype)) {
@@ -264,7 +283,8 @@ export default class MessageEvent extends React.Component<IProps> implements IMe
             }
 
             if (
-                ((BodyType === MImageBody || BodyType == MVideoBody) && !this.validateImageOrVideoMimetype(content)) ||
+                ((BodyType === ImageBodyFactory || BodyType === VideoBodyFactory) &&
+                    !this.validateImageOrVideoMimetype(content)) ||
                 (BodyType === MStickerBody && !this.validateStickerMimetype(content))
             ) {
                 BodyType = this.bodyTypes.get(MsgType.File)!;
@@ -286,7 +306,7 @@ export default class MessageEvent extends React.Component<IProps> implements IMe
                 const serverBanned = userDomain && Mjolnir.sharedInstance().isServerBanned(userDomain);
 
                 if (userBanned || serverBanned) {
-                    BodyType = MjolnirBody;
+                    BodyType = MjolnirBodyWrappedView;
                 }
             }
         }
@@ -327,25 +347,6 @@ const CaptionBody: React.FunctionComponent<IBodyProps & { WrappedBodyType: React
 }) => (
     <div className="mx_EventTile_content">
         <WrappedBodyType {...props} />
-        <TextualBody {...{ ...props, ref: undefined }} />
+        <TextualBodyFactory {...{ ...props, ref: undefined }} />
     </div>
 );
-
-/**
- * Bridge decryption-failure events into the view model using current local verification state.
- * This wrapper can be removed after MessageEvent has been changed to a function component.
- */
-function DecryptionFailureBodyWrapper({ mxEvent, ref }: IBodyProps): JSX.Element {
-    const verificationState = useContext(LocalDeviceVerificationStateContext);
-    const vm = useCreateAutoDisposedViewModel(
-        () =>
-            new DecryptionFailureBodyViewModel({
-                decryptionFailureCode: mxEvent.decryptionFailureReason,
-                verificationState,
-            }),
-    );
-    useEffect(() => {
-        vm.setVerificationState(verificationState);
-    }, [verificationState, vm]);
-    return <DecryptionFailureBodyView vm={vm} ref={ref} className="mx_DecryptionFailureBody mx_EventTile_content" />;
-}

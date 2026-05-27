@@ -16,8 +16,7 @@
         "room_name": "Istaba %(name)s",
         "room_status_bar": "Istabas statusa josla",
         "seek_bar_label": "Audio meklēšanas josla",
-        "unread_messages": "Nelasītās ziņas.",
-        "user_menu": "Lietotāja izvēlne"
+        "unread_messages": "Nelasītās ziņas."
     },
     "a11y_jump_first_unread_room": "Pāriet uz pirmo nelasīto istabu.",
     "action": {
@@ -33,7 +32,6 @@
         "cancel": "Atcelt",
         "change": "Mainīt",
         "clear": "Notīrīt",
-        "click": "Noklikšķiniet",
         "click_to_copy": "Noklikšķiniet, lai kopētu",
         "close": "Aizvērt",
         "collapse": "Sakļaut",
@@ -339,7 +337,6 @@
         "sign_in_instead_prompt": "Jau ir konts? <a>Pierakstieties šeit</a>",
         "sign_in_or_register": "Pieteikties vai izveidot kontu",
         "sign_in_or_register_description": "Jāizmanto savs konts vai jāizveido jauns, lai turpinātu.",
-        "sign_in_prompt": "Vai ir konts? <a>Pieteikties</a>",
         "sign_in_with_sso": "Pieteikties ar vienoto pierakstīšanos",
         "signing_in": "Piesakās…",
         "soft_logout": {
@@ -786,7 +783,6 @@
         "thread_root_id": "Pavediena saknes ID: %(threadRootId)s",
         "threads_timeline": "Pavedienu laika skala",
         "title": "Izstrādātāja rīki",
-        "toggle_event": "pārslēgt notikumu",
         "toolbox": "Instrumentārijs",
         "use_at_own_risk": "Šī lietotāja saskarne NEPĀRBAUDA vērtību veidus. Izmantojiet uz savu risku.",
         "user_read_up_to": "Lietotājs izlasījis līdz: ",
@@ -1126,9 +1122,6 @@
         "disabled_dialog_title": "Integrācijas ir atspējotas"
     },
     "invite": {
-        "ask_anyway_description": "Nevar atrast profilus zemāk uzskaitītajiem Matrix ID. Vai jūs tomēr vēlētos sākt DM jebkurā gadījumā?",
-        "ask_anyway_label": "Sākt DM jebkurā gadījumā",
-        "ask_anyway_never_warn_label": "Sākt DM jebkurā gadījumā un nekad vairs nebrīdināt mani",
         "email_caption": "Uzaicināt pa e-pastu",
         "email_limit_one": "Uzaicinājumus pa e-pastu var nosūtīt tikai pa vienam",
         "email_use_default_is": "Izmantot identitātes serveri, lai uzaicinātu pa e-pastu. <default>Izmantojiet noklusējumu (%(defaultIdentityServerName)s)</default> vai pārvaldiet <settings>Iestatījumos</settings>.",
@@ -1225,8 +1218,6 @@
     },
     "labs": {
         "ask_to_join": "Iespējot aicinājumus pievienoties",
-        "automatic_debug_logs": "Automātiski nosūtīt atkļūdošanas žurnālus par jebkuru kļūdu",
-        "automatic_debug_logs_decryption": "Automātiski nosūtīt atkļūdošanas žurnālus par atšifrēšanas kļūdām",
         "beta_description": "Kas gaidāms %(brand)s? Laboratorijas ir labākais veids, kā agri iegūt un izmēģināt jaunas iespējas un palīdzēt tās pilnveidot, pirms tās tiek izlaistas.",
         "beta_feature": "Šī ir beta funkcija",
         "beta_feedback_leave_button": "Lai izietu no beta versijas, atveriet iestatījumus.",
@@ -1847,8 +1838,6 @@
             "aliases_section": "Istabas adreses",
             "avatar_field_label": "Istabas avatars",
             "canonical_alias_field_label": "Galvenā adrese",
-            "default_url_previews_off": "ULR priekšskatījumi šīs istabas dalībniekiem pēc noklusējuma ir atspējoti.",
-            "default_url_previews_on": "URL priekšskatījumi šīs istabas dalībniekiem pēc noklusējuma ir iespējoti.",
             "description_space": "Rediģējiet ar jūsu telpu saistītos iestatījumus.",
             "error_creating_alias_description": "Veidojot šo adresi, radās kļūda. Iespējams, serveris to neatļauj vai arī ir radusies īslaicīga kļūme.",
             "error_creating_alias_title": "Veidojot adresi, radās kļūda",
@@ -1875,12 +1864,7 @@
             "published_aliases_explainer_space": "Publicētās adreses var izmantot ikviens jebkurā serverī, lai pievienotos jūsu telpai.",
             "published_aliases_section": "Publiskotās adreses",
             "save": "Saglabāt izmaiņas",
-            "topic_field_label": "Istabas temats",
-            "url_preview_encryption_warning": "Šifrētās istabās, tādās kā šī, URL priekšskatījumi pēc noklusējumi ir atspējoti, lai nodrošinātu, ka mājasserveris (kurā priekšskatījumi tiek izveidoti) nevar iegūt informāciju par šajā istabā redzamajām saitēm.",
-            "url_preview_explainer": "Kad kāds savā ziņā ievieto URL, var tikt parādīts priekšskatījums, lai sniegtu vairāk informācijas par saiti, kā piemēram, virsraksts, apraksts un attēls no tīmekļvietnes.",
-            "url_previews_section": "URL priekšskatījumi",
-            "user_url_previews_default_off": "Tu pēc noklusējuma esi <a>atspējojis</a> URL priekšskatījumus.",
-            "user_url_previews_default_on": "Tu pēc noklusējuma esi <a>iespējojis</a> URL priekšskatījumus."
+            "topic_field_label": "Istabas temats"
         },
         "notifications": {
             "browse_button": "Pārlūkot",
@@ -2170,8 +2154,6 @@
             "spell_check_locale_placeholder": "Izvēlieties lokalizāciju"
         },
         "inline_url_previews_default": "Iespējot URL priekšskatījumus pēc noklusējuma",
-        "inline_url_previews_room": "Iespējot URL priekšskatījumus pēc noklusējuma visiem šīs istabas dalībniekiem",
-        "inline_url_previews_room_account": "Iespējot URL priekšskatījumus šajā istabā (ietekmē tikai Tevi)",
         "insert_trailing_colon_mentions": "Jāievieto beigu kols pēc lietotāja pieminēšanas ziņas sākumā",
         "jump_to_bottom_on_send": "Nosūtot ziņu, pāriet uz laika skalas beigām",
         "key_backup": {
@@ -2770,7 +2752,6 @@
         "creation_summary_dm": "%(creator)s uzsāka šo tiešo saraksti.",
         "creation_summary_room": "%(creator)s izveidoja un nokonfigurēja istabu.",
         "disambiguated_profile": "%(displayName)s (%(matrixId)s)",
-        "download_action_decrypting": "Atšifrē",
         "download_action_downloading": "Lejupielādē",
         "edits": {
             "tooltip_label": "Labots %(date)s. Klikšķināt, lai skatītu labojumus.",
@@ -2822,8 +2803,7 @@
             "voice_call_unsupported": "%(senderName)s uzsāka balss zvanu. (Netiek atbalstīts šajā pārlūkā)"
         },
         "m.file": {
-            "error_decrypting": "Kļūda pielikuma atšifrēšanā",
-            "error_invalid": "Nederīga datne %(extra)s"
+            "error_decrypting": "Kļūda pielikuma atšifrēšanā"
         },
         "m.image": {
             "error": "Nevar parādīt attēlu kļūdas dēļ",
@@ -2854,9 +2834,7 @@
         "m.poll.start": "%(senderName)s uzsāka aptauju- %(pollQuestion)s",
         "m.room.avatar": {
             "changed": "%(senderDisplayName)s mainīja istabas avataru.",
-            "changed_img": "%(senderDisplayName)s nomainīja istabas avataru uz <img/>",
-            "lightbox_title": "%(senderDisplayName)s nomainīja %(roomName)s istabas avataru",
-            "removed": "%(senderDisplayName)s dzēsa istabas avataru."
+            "lightbox_title": "%(senderDisplayName)s nomainīja %(roomName)s istabas avataru"
         },
         "m.room.canonical_alias": {
             "alt_added": {
@@ -2960,10 +2938,7 @@
             "removed": "Ekrānvadīklu %(widgetName)s noņēma %(senderName)s"
         },
         "mab": {
-            "collapse_reply_chain": "Sakļaut citātus",
             "copy_link_thread": "Kopēt saiti uz pavedienu",
-            "expand_reply_chain": "Izvērst citātus",
-            "label": "Darbības ar ziņu",
             "view_in_room": "Skats istabā"
         },
         "mjolnir": {
@@ -2975,7 +2950,6 @@
             "created_rule_rooms": "%(senderName)s izveidoja noteikumu pieejas liegšanai istabām, kas atbilst %(glob)s dēļ %(reason)s",
             "created_rule_servers": "%(senderName)s izveidoja noteikumu pieejas liegšanai serveriem, kas atbilst %(glob)s dēļ %(reason)s",
             "created_rule_users": "%(senderName)s izveidoja noteikumu pieejas liegšanai lietotājiem, kas atbilst %(glob)s dēļ %(reason)s",
-            "message_hidden": "Šis lietotājs netiek ņemts vērā, tādēļ viņa ziņa ir paslēpta. <a>Vienalga rādīt.</a>",
             "removed_rule": "%(senderName)s dzēsa noteikumu pieejas liegšanai atbilstoši %(glob)s",
             "removed_rule_rooms": "%(senderName)s dzēsa noteikumu pieejas liegšanai istabām, kas atbilst %(glob)s",
             "removed_rule_servers": "%(senderName)s dzēsa noteikumu pieejas liegšanai serveriem, kas atbilst %(glob)s",
@@ -3192,14 +3166,7 @@
             "one_user": "%(displayName)s raksta…",
             "two_users": "%(names)s un %(lastPerson)s raksta…"
         },
-        "undecryptable_tooltip": "Šo ziņu nevarēja atšifrēt",
-        "url_preview": {
-            "close": "Aizvērt priekšskatījumu",
-            "show_n_more": {
-                "one": "Rādīt %(count)s citu priekšskatījumu",
-                "other": "Rādīt %(count)s citus priekšskatījumus"
-            }
-        }
+        "undecryptable_tooltip": "Šo ziņu nevarēja atšifrēt"
     },
     "truncated_list_n_more": {
         "other": "Un par %(count)s vairāk..."
@@ -3286,11 +3253,6 @@
         "share_button": "Dalīties ar saiti uz lietotāju",
         "verify_button": "Apliecināt lietotāju",
         "verify_explainer": "Papildu drošībai jāapliecina šis lietotājs, pārbaudot vienreizēju kodu abās ierīcēs."
-    },
-    "user_menu": {
-        "settings": "Visi iestatījumi",
-        "switch_theme_dark": "Pārslēgt tumšo režīmu",
-        "switch_theme_light": "Pārslēgt gaišo režīmu"
     },
     "voip": {
         "already_in_call": "Notiek zvans",
@@ -3381,7 +3343,6 @@
         "user_busy_description": "Lietotājs, kuram zvanāt, ir aizņemts.",
         "user_is_presenting": "%(sharerName)s prezentē",
         "video_call": "Video zvans",
-        "video_call_started": "Videozvans uzsākts",
         "voice_call": "Balss zvans",
         "you_are_presenting": "Jūs prezentējat"
     },

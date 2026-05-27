@@ -1,7 +1,4 @@
 {
-    "a11y": {
-        "user_menu": ""
-    },
     "action": {
         "accept": "მიღება",
         "add": "რჩეულებში",
@@ -15,7 +12,6 @@
         "cancel": "გაუქმება",
         "change": "ცვლილება",
         "clear": "გასუფთავება",
-        "click": "დააწკაპუნეთ",
         "click_to_copy": "დააწკაპუნეთ კოპირებისთვის",
         "close": "დახურვა",
         "collapse": "აკეცვა",
@@ -285,7 +281,6 @@
         "sign_in_instead_prompt": "უკვე გაქვთ ანგარიში?<a> შედით აქ</a>",
         "sign_in_or_register": "შედით ან შექმენით ანგარიში",
         "sign_in_or_register_description": "გამოიყენეთ თქვენი ანგარიში ან შექმენით ახალი გასაგრძელებლად.",
-        "sign_in_prompt": "გაქვთ ანგარიში?<a> შესვლა</a>",
         "sign_in_with_sso": "შედით ერთი შესვლით",
         "signing_in": "შესვლა…",
         "soft_logout": {
@@ -616,7 +611,6 @@
         "thread_root_id": "თემის ფესვის ID:%(threadRootId)s",
         "threads_timeline": "თემების ვადები",
         "title": "დეველოპერის ინსტრუმენტები",
-        "toggle_event": "მოვლენის გადართვა",
         "toolbox": "ხელსაწყოს ყუთი",
         "use_at_own_risk": "ეს UI არ ამოწმებს მნიშვნელობების ტიპებს. გამოიყენეთ საკუთარი რისკის ქვეშ.",
         "user_read_up_to": "მომხმარებელმა წაიკითხა: ",
@@ -899,9 +893,6 @@
         "other": "In%(spaceName)s და%(count)s სხვა სივრცეები."
     },
     "invite": {
-        "ask_anyway_description": "ქვემოთ ჩამოთვლილი Matrix ID-ების პროფილების პოვნა ვერ ხერხდება - მაინც გსურთ DM-ის დაწყება?",
-        "ask_anyway_label": "მაინც დაიწყე DM",
-        "ask_anyway_never_warn_label": "მაინც დაიწყე DM და აღარასოდეს გამაფრთხილო",
         "email_caption": "მოიწვიე ელექტრონული ფოსტით",
         "email_limit_one": "მოწვევები ელექტრონული ფოსტით შეიძლება გაიგზავნოს მხოლოდ ერთ ჯერზე",
         "email_use_default_is": "გამოიყენეთ საიდენტიფიკაციო სერვერი ელექტრონული ფოსტით მოსაწვევად.<default> გამოიყენეთ ნაგულისხმევი (%(defaultIdentityServerName)s )</default> ან მართეთ<settings> პარამეტრები</settings> .",
@@ -977,8 +968,6 @@
     },
     "labs": {
         "ask_to_join": "ჩართეთ შეერთების მოთხოვნა",
-        "automatic_debug_logs": "ავტომატურად გაგზავნეთ გამართვის ჟურნალი ნებისმიერი შეცდომის შესახებ",
-        "automatic_debug_logs_decryption": "გაშიფვრის შეცდომებზე გამართვის ჟურნალების ავტომატურად გაგზავნა",
         "beta_description": "რა არის შემდეგი%(brand)s ? ლაბორატორიები საუკეთესო საშუალებაა ნივთების ადრეულ ეტაპზე მისაღებად, ახალი ფუნქციების შესამოწმებლად და მათ ჩამოყალიბებაში, სანამ ისინი რეალურად დაიწყება.",
         "beta_feature": "ეს არის ბეტა ფუნქცია",
         "beta_feedback_leave_button": "ბეტადან გასასვლელად ეწვიეთ თქვენს პარამეტრებს.",
@@ -1392,8 +1381,6 @@
             "aliases_section": "ოთახის მისამართები",
             "avatar_field_label": "ოთახის ავატარი",
             "canonical_alias_field_label": "მთავარი მისამართი",
-            "default_url_previews_off": "URL-ის გადახედვა ნაგულისხმევად გამორთულია ამ ოთახში მონაწილეებისთვის.",
-            "default_url_previews_on": "URL-ის გადახედვა ნაგულისხმევად ჩართულია ამ ოთახში მონაწილეებისთვის.",
             "description_space": "შეცვალეთ პარამეტრები, რომლებიც დაკავშირებულია თქვენს სივრცესთან.",
             "error_creating_alias_description": "ამ მისამართის შექმნისას მოხდა შეცდომა. ეს შეიძლება არ იყოს დაშვებული სერვერის მიერ ან მოხდა დროებითი უკმარისობა.",
             "error_creating_alias_title": "შეცდომა მისამართის შექმნისას",
@@ -1420,12 +1407,7 @@
             "published_aliases_explainer_space": "გამოქვეყნებული მისამართები შეიძლება გამოყენებულ იქნას ნებისმიერ სერვერზე, რათა შეუერთდეს თქვენს სივრცეს.",
             "published_aliases_section": "გამოქვეყნებული მისამართები",
             "save": "ცვლილებების შენახვა",
-            "topic_field_label": "ოთახის თემა",
-            "url_preview_encryption_warning": "დაშიფრულ ოთახებში, როგორიცაა ეს, URL-ის გადახედვა ნაგულისხმევად გამორთულია, რათა უზრუნველყოს, რომ თქვენი სახლის სერვერი (სადაც იქმნება გადახედვები) ვერ შეაგროვებს ინფორმაციას ამ ოთახში ნახულ ბმულებზე.",
-            "url_preview_explainer": "როდესაც ვინმე ათავსებს URL-ს თავის შეტყობინებაში, URL-ის გადახედვა შეიძლება ნაჩვენები იყოს ამ ბმულის შესახებ მეტი ინფორმაციის მისაღებად, როგორიცაა სათაური, აღწერა და სურათი ვებსაიტიდან.",
-            "url_previews_section": "URL გადახედვები",
-            "user_url_previews_default_off": "თქვენ გაქვთ<a> ინვალიდი</a> URL-ის გადახედვა ნაგულისხმევად.",
-            "user_url_previews_default_on": "თქვენ გაქვთ<a> ჩართულია</a> URL-ის გადახედვა ნაგულისხმევად."
+            "topic_field_label": "ოთახის თემა"
         },
         "notifications": {
             "browse_button": "დათვალიერება",
@@ -1691,8 +1673,6 @@
             "spell_check_locale_placeholder": "აირჩიეთ ლოკალი"
         },
         "inline_url_previews_default": "ნაგულისხმევად ჩართული URL-ის გადახედვის ჩართვა",
-        "inline_url_previews_room": "URL-ის გადახედვის ჩართვა ნაგულისხმევად ამ ოთახში მონაწილეებისთვის",
-        "inline_url_previews_room_account": "ამ ოთახისთვის URL-ის გადახედვის ჩართვა (მხოლოდ თქვენზე მოქმედებს)",
         "insert_trailing_colon_mentions": "ჩადეთ ბოლო ორწერტილი მას შემდეგ, რაც მომხმარებელი აღნიშნავს შეტყობინების დასაწყისში",
         "jump_to_bottom_on_send": "შეტყობინების გაგზავნისას გადადით ქრონოლოგიის ბოლოში",
         "key_backup": {
@@ -2200,7 +2180,6 @@
         "creation_summary_dm": "%(creator)sშექმნა ეს DM.",
         "creation_summary_room": "%(creator)sოთახის შექმნა და კონფიგურაცია.",
         "disambiguated_profile": "%(displayName)s(%(matrixId)s )",
-        "download_action_decrypting": "გაშიფვრა",
         "download_action_downloading": "ჩამოტვირთვა",
         "edits": {
             "tooltip_label": "რედაქტირებულია%(date)s . დააწკაპუნეთ რედაქტირების სანახავად.",
@@ -2252,8 +2231,7 @@
             "voice_call_unsupported": "%(senderName)sმოახდინა ხმოვანი ზარი. (ამ ბრაუზერის მიერ არ არის მხარდაჭერილი)"
         },
         "m.file": {
-            "error_decrypting": "შეცდომა დანართის გაშიფვრისას",
-            "error_invalid": "არასწორი ფაილი"
+            "error_decrypting": "შეცდომა დანართის გაშიფვრისას"
         },
         "m.image": {
             "error": "შეცდომის გამო სურათის ჩვენება შეუძლებელია",
@@ -2283,9 +2261,7 @@
         "m.poll.start": "%(senderName)sდაიწყო გამოკითხვა - %(pollQuestion)s",
         "m.room.avatar": {
             "changed": "%(senderDisplayName)sშეცვალა ოთახის ავატარი.",
-            "changed_img": "%(senderDisplayName)sშეცვალა ოთახის ავატარი<img/>",
-            "lightbox_title": "%(senderDisplayName)sშეცვალე ავატარი%(roomName)s",
-            "removed": "%(senderDisplayName)sამოიღო ოთახის ავატარი."
+            "lightbox_title": "%(senderDisplayName)sშეცვალე ავატარი%(roomName)s"
         },
         "m.room.canonical_alias": {
             "alt_added": {
@@ -2389,10 +2365,7 @@
             "removed": "%(widgetName)sვიჯეტი ამოღებულია %(senderName)s"
         },
         "mab": {
-            "collapse_reply_chain": "ციტატების ჩაკეცვა",
             "copy_link_thread": "დააკოპირეთ ბმული თემაში",
-            "expand_reply_chain": "ციტატების გაფართოება",
-            "label": "შეტყობინების მოქმედებები",
             "view_in_room": "ხედი ოთახში"
         },
         "mjolnir": {
@@ -2404,7 +2377,6 @@
             "created_rule_rooms": "%(senderName)sშექმნეს წესი, რომელიც კრძალავს ოთახების შესაბამისობას%(glob)s ამისთვის%(reason)s",
             "created_rule_servers": "%(senderName)sშექმნა წესი, რომელიც კრძალავს სერვერების შესაბამისობას%(glob)s ამისთვის%(reason)s",
             "created_rule_users": "%(senderName)sშექმნეს წესი, რომელიც კრძალავს მომხმარებელთა შესაბამისობას%(glob)s ამისთვის%(reason)s",
-            "message_hidden": "თქვენ უგულებელყავით ეს მომხმარებელი, ამიტომ მისი შეტყობინება დამალულია.<a> აჩვენე მაინც.</a>",
             "removed_rule": "%(senderName)sამოღებულია აკრძალვის წესის შესატყვისი%(glob)s",
             "removed_rule_rooms": "%(senderName)sამოიღეს ოთახების შესატყვისი აკრძალვის წესი%(glob)s",
             "removed_rule_servers": "%(senderName)sწაშალეს სერვერების დამთხვევის აკრძალვის წესი%(glob)s",
@@ -2583,14 +2555,7 @@
             "one_user": "%(displayName)sაკრეფებს...",
             "two_users": "%(names)sდა აკ %(lastPerson)s რეფენ..."
         },
-        "undecryptable_tooltip": "ამ შეტყობინების გაშიფვრა ვერ მოხერხდა",
-        "url_preview": {
-            "close": "გადახედვის დახურვა",
-            "show_n_more": {
-                "one": "ჩვენება%(count)s სხვა გადახედვა",
-                "other": "ჩვენება%(count)s სხვა გადახედვები"
-            }
-        }
+        "undecryptable_tooltip": "ამ შეტყობინების გაშიფვრა ვერ მოხერხდა"
     },
     "unsupported_server_description": "ეს სერვერი იყენებს Matrix-ის ძველ ვერსიას. განაახლეთ Matrix-ზე%(version)s გამოიყენოს%(brand)s შეცდომების გარეშე.",
     "unsupported_server_title": "თქვენი სერვერი მხარდაჭერილი არ არის",
@@ -2696,7 +2661,6 @@
         "user_busy_description": "მომხმარებელი, რომელსაც დაურეკე, დაკავებულია.",
         "user_is_presenting": "%(sharerName)sწარმოადგენს",
         "video_call": "ვიდეო ზარი",
-        "video_call_started": "ვიდეო ზარი დაიწყო",
         "voice_call": "ხმოვანი ზარი",
         "you_are_presenting": "წარმოგიდგენთ"
     },

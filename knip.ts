@@ -7,11 +7,14 @@ export default {
     workspaces: {
         "packages/shared-components": {},
         "packages/playwright-common": {
+            entry: ["src/fixtures/index.ts", "src/testcontainers/index.ts"],
             ignoreDependencies: [
                 // Used in playwright-screenshots.sh
                 "wait-on",
             ],
+            ignoreBinaries: ["awk"],
         },
+        "packages/module-api": {},
         "apps/web": {
             entry: [
                 "src/serviceworker/index.ts",
@@ -46,6 +49,15 @@ export default {
                 "@types/sdp-transform",
             ],
         },
+        "apps/desktop": {
+            entry: ["src/preload.cts", "electron-builder.ts", "scripts/**", "hak/**"],
+            project: ["**/*.{js,ts}"],
+            ignoreDependencies: [
+                // Brought in via hak scripts
+                "matrix-seshat",
+            ],
+            ignoreBinaries: ["scripts/in-docker.sh"],
+        },
         ".": {
             entry: ["scripts/**", "docs/**"],
         },
@@ -53,17 +65,15 @@ export default {
     ignoreExportsUsedInFile: true,
     compilers: {
         pcss: (text: string) =>
-            [...text.matchAll(/(?<=@)import[^;]+/g)]
-                .map(([line]) => {
-                    if (line.startsWith("import url(")) {
-                        return line.replace("url(", "").slice(0, -1);
-                    }
-                    return line;
-                })
+            [...text.matchAll(/@import\s+(?:url\()?["']([^"']+)["']\)?[^;]*;/g)]
+                .map(([, specifier]) => `import "${specifier}";`)
                 .join("\n"),
     },
     nx: {
         config: ["{nx,package,project}.json", "{apps,packages,modules}/**/{package,project}.json"],
+    },
+    playwright: {
+        config: ["playwright.config.ts", "playwright-merge.config.ts"],
     },
     tags: ["-knipignore"],
 } satisfies KnipConfig;

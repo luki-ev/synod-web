@@ -6,10 +6,21 @@
  */
 
 import { type GeneratedSecretStorageKey } from "matrix-js-sdk/src/crypto-api";
+import { assertNoToasts, getToast, rejectToast } from "@element-hq/element-web-playwright-common";
 
 import { test, expect } from "../../element-web-test";
-import { createBot, deleteCachedSecrets, disableKeyBackup, logIntoElementAndVerify } from "./utils";
+import { createBot, deleteCachedSecrets, disableKeyBackup, logIntoElement, logIntoElementAndVerify } from "./utils";
 import { type Bot } from "../../pages/bot";
+
+// Mask the background of the screenshot to avoid failing the test just because some
+// other component has changed its rendering.
+const screenshotOptions = {
+    css: `
+        .mx_ToastContainer {
+            background-color: magenta !important;
+        }
+    `,
+};
 
 test.describe("Key storage out of sync toast", () => {
     let recoveryKey: GeneratedSecretStorageKey;
@@ -21,31 +32,13 @@ test.describe("Key storage out of sync toast", () => {
         await logIntoElementAndVerify(page, credentials, recoveryKey.encodedPrivateKey);
 
         await deleteCachedSecrets(page);
-
-        // We won't be prompted for crypto setup unless we have an e2e room, so make one
-        await page
-            .getByRole("navigation", { name: "Room list" })
-            .getByRole("button", { name: "New conversation" })
-            .click();
-        await page.getByRole("menuitem", { name: "New room" }).click();
-        await page.getByRole("textbox", { name: "Name" }).fill("Test room");
-        await page.getByRole("button", { name: "Create room" }).click();
     });
 
     test("should prompt for recovery key if 'enter recovery key' pressed", { tag: "@screenshot" }, async ({ page }) => {
-        // We need to wait for there to be two toasts as the wait below won't work in isolation:
-        // playwright only evaluates the 'first()' call initially, not subsequent times it checks, so
-        // it would always be checking the same toast, even if another one is now the first.
-        await expect(page.getByRole("alert")).toHaveCount(2);
-        // Mask the background of the screenshot to avoid failing the test just because some
-        // other component have changed its rendering.
-        await expect(page.getByRole("alert").first()).toMatchScreenshot("key-storage-out-of-sync-toast.png", {
-            css: `
-                    .mx_ToastContainer {
-                        background-color: magenta !important;
-                    }
-                `,
-        });
+        await expect(page.getByRole("alert").filter({ hasText: "Your key storage is out of sync." })).toMatchScreenshot(
+            "key-storage-out-of-sync-toast.png",
+            screenshotOptions,
+        );
 
         await page.getByRole("button", { name: "Enter recovery key" }).click();
 
@@ -61,7 +54,9 @@ test.describe("Key storage out of sync toast", () => {
         await page.getByRole("button", { name: "Forgot recovery key?" }).click();
 
         await expect(
-            page.getByRole("heading", { name: "Forgot your recovery key? You’ll need to reset your identity." }),
+            page.getByRole("heading", {
+                name: "Forgot your recovery key? You’ll need to reset your digital identity.",
+            }),
         ).toBeVisible();
     });
 });
@@ -69,7 +64,7 @@ test.describe("Key storage out of sync toast", () => {
 test.describe("'Turn on key storage' toast", () => {
     let botClient: Bot | undefined;
 
-    test.beforeEach(async ({ page, homeserver, credentials, toasts }) => {
+    test.beforeEach(async ({ page, homeserver, credentials }) => {
         // Set up all crypto stuff. Key storage defaults to on.
 
         const res = await createBot(page, homeserver, credentials);
@@ -87,13 +82,13 @@ test.describe("'Turn on key storage' toast", () => {
         await page.getByRole("textbox", { name: "Name" }).fill("Test room");
         await page.getByRole("button", { name: "Create room" }).click();
 
-        await toasts.rejectToast("Notifications");
+        await rejectToast(page, "Notifications");
     });
 
-    test("should not show toast if key storage is on", async ({ page, toasts }) => {
+    test("should not show toast if key storage is on", async ({ page }) => {
         // Given the default situation after signing in
         // Then no toast is shown (because key storage is on)
-        await toasts.assertNoToasts();
+        await assertNoToasts(page);
 
         // When we reload
         await page.reload();
@@ -102,15 +97,15 @@ test.describe("'Turn on key storage' toast", () => {
         await new Promise((resolve) => setTimeout(resolve, 2000));
 
         // Then still no toast is shown
-        await toasts.assertNoToasts();
+        await assertNoToasts(page);
     });
 
-    test("should not show toast if key storage is off because we turned it off", async ({ app, page, toasts }) => {
+    test("should not show toast if key storage is off because we turned it off", async ({ app, page }) => {
         // Given the backup is disabled because we disabled it
         await disableKeyBackup(app);
 
         // Then no toast is shown
-        await toasts.assertNoToasts();
+        await assertNoToasts(page);
 
         // When we reload
         await page.reload();
@@ -119,10 +114,10 @@ test.describe("'Turn on key storage' toast", () => {
         await new Promise((resolve) => setTimeout(resolve, 2000));
 
         // Then still no toast is shown
-        await toasts.assertNoToasts();
+        await assertNoToasts(page);
     });
 
-    test("should show toast if key storage is off but account data is missing", async ({ app, page, toasts }) => {
+    test("should show toast if key storage is off but account data is missing", async ({ app, page }) => {
         // Given the backup is disabled but we didn't set account data saying that is expected
         await disableKeyBackup(app);
         await botClient.setAccountData("m.org.matrix.custom.backup_disabled", { disabled: false });
@@ -134,7 +129,7 @@ test.describe("'Turn on key storage' toast", () => {
         await page.reload();
 
         // Then the toast is displayed
-        let toast = await toasts.getToast("Turn on key storage");
+        let toast = await getToast(page, "Turn on key storage");
 
         // And when we click "Continue"
         await toast.getByRole("button", { name: "Continue" }).click();
@@ -146,7 +141,7 @@ test.describe("'Turn on key storage' toast", () => {
         await page.getByRole("button", { name: "Close dialog" }).click();
 
         // Then we see the toast again
-        toast = await toasts.getToast("Turn on key storage");
+        toast = await getToast(page, "Turn on key storage");
 
         // And when we click "Dismiss"
         await toast.getByRole("button", { name: "Dismiss" }).click();
@@ -160,7 +155,7 @@ test.describe("'Turn on key storage' toast", () => {
         await page.getByTestId("dialog-background").click({ force: true, position: { x: 10, y: 10 } });
 
         // Then we see the toast again
-        toast = await toasts.getToast("Turn on key storage");
+        toast = await getToast(page, "Turn on key storage");
 
         // And when we click Dismiss and then "Go to Settings"
         await toast.getByRole("button", { name: "Dismiss" }).click();
@@ -171,11 +166,46 @@ test.describe("'Turn on key storage' toast", () => {
 
         // And when we close that, see the toast, click Dismiss, and Yes, Dismiss
         await page.getByRole("button", { name: "Close dialog" }).click();
-        toast = await toasts.getToast("Turn on key storage");
+        toast = await getToast(page, "Turn on key storage");
         await toast.getByRole("button", { name: "Dismiss" }).click();
         await page.getByRole("button", { name: "Yes, dismiss" }).click();
 
         // Then the toast is gone
-        await toasts.assertNoToasts();
+        await assertNoToasts(page);
     });
+});
+
+test.describe("Verify this device toast", () => {
+    test(
+        "The toast is displayed if we are not verified",
+        { tag: "@screenshot" },
+        async ({ page, credentials, homeserver }) => {
+            // Ensure the user already has a device, and an encrypted toom, so
+            // we need to verify when we log in
+            const { botClient } = await createBot(page, homeserver, credentials, true);
+            await botClient.createRoom({
+                initial_state: [
+                    {
+                        type: "m.room.encryption",
+                        state_key: "",
+                        content: { algorithm: "m.megolm.v1.aes-sha2" },
+                    },
+                ],
+            });
+
+            // Log in without verifying
+            await logIntoElement(page, credentials);
+            const authPage = page.locator(".mx_AuthPage");
+            await authPage.getByRole("button", { name: "Skip verification for now" }).click();
+            await authPage.getByRole("button", { name: "I'll verify later" }).click();
+            await page.waitForSelector(".mx_MatrixChat");
+
+            await expect(page.getByRole("heading", { name: "Verify this device" })).toBeVisible();
+
+            await expect(page.locator(".mx_ToastContainer")).toMatchScreenshot(
+                "verify-this-device.png",
+                screenshotOptions,
+            );
+        },
+    );
 });

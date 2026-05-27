@@ -20,6 +20,7 @@ import { KnownMembership } from "matrix-js-sdk/src/types";
 import { render } from "jest-matrix-react";
 import { type ReactElement } from "react";
 import { type Mocked, mocked } from "jest-mock";
+import React from "react";
 
 import { hasText, textForEvent } from "../../src/TextForEvent";
 import SettingsStore from "../../src/settings/SettingsStore";
@@ -28,6 +29,7 @@ import { MatrixClientPeg } from "../../src/MatrixClientPeg";
 import UserIdentifierCustomisations from "../../src/customisations/UserIdentifier";
 import { getSenderName } from "../../src/utils/event/getSenderName";
 import { ElementCallEventType } from "../../src/call-types";
+import Spoiler from "../../src/components/views/elements/Spoiler";
 
 jest.mock("../../src/settings/SettingsStore");
 jest.mock("../../src/customisations/UserIdentifier", () => ({
@@ -490,6 +492,48 @@ describe("TextForEvent", () => {
         });
     });
 
+    describe("textForCallInviteEvent()", () => {
+        let mockClient: MatrixClient;
+        let callInviteEvent: MatrixEvent;
+
+        beforeEach(() => {
+            stubClient();
+            mockClient = MatrixClientPeg.safeGet();
+
+            mocked(mockClient.supportsVoip).mockReturnValue(true);
+
+            callInviteEvent = {
+                getSender: jest.fn().mockReturnValue("@alice:matrix.org"),
+                sender: { name: "Alice" },
+                getContent: jest.fn().mockReturnValue({}),
+                getType: jest.fn().mockReturnValue(EventType.CallInvite),
+                isState: jest.fn().mockReturnValue(false),
+            } as unknown as MatrixEvent;
+        });
+
+        it("returns correct message for legacy voice call invite", () => {
+            mocked(callInviteEvent).getContent.mockReturnValue({ offer: { sdp: "m=audio" } });
+            expect(textForEvent(callInviteEvent, mockClient)).toEqual("Alice placed a voice call.");
+        });
+
+        it("returns correct message for legacy video call invite", () => {
+            mocked(callInviteEvent).getContent.mockReturnValue({ offer: { sdp: "m=video" } });
+            expect(textForEvent(callInviteEvent, mockClient)).toEqual("Alice placed a video call.");
+        });
+
+        it("returns correct message for MSC4075 voice call", () => {
+            mocked(callInviteEvent).getType.mockReturnValue(EventType.RTCNotification);
+            mocked(callInviteEvent).getContent.mockReturnValue({ "m.call.intent": "audio" });
+            expect(textForEvent(callInviteEvent, mockClient)).toEqual("Alice placed a voice call.");
+        });
+
+        it("returns correct message for MSC4075 video call", () => {
+            mocked(callInviteEvent).getType.mockReturnValue(EventType.RTCNotification);
+            mocked(callInviteEvent).getContent.mockReturnValue({ "m.call.intent": "video" });
+            expect(textForEvent(callInviteEvent, mockClient)).toEqual("Alice placed a video call.");
+        });
+    });
+
     describe("textForMemberEvent()", () => {
         beforeEach(() => {
             stubClient();
@@ -561,6 +605,50 @@ describe("TextForEvent", () => {
                     mockClient,
                 ),
             ).toMatchInlineSnapshot(`"Member rejected the invitation: I don't want to be in this room."`);
+        });
+
+        it("shows single-user bans with a spoiler on display name", () => {
+            mocked(mockClient.getRoom).mockReturnValue({
+                getMember: jest.fn().mockImplementation((userId) => {
+                    return { rawDisplayName: userId === "@admin:example.com" ? "Admin" : "Bad User" };
+                }),
+            } as unknown as Mocked<Room>);
+
+            expect(textForEvent(banEventWithReason(), mockClient, true)).toEqual(
+                <span>
+                    Admin banned <Spoiler>Bad User</Spoiler>: bad behaviour
+                </span>,
+            );
+        });
+
+        it("hides user name for single-user bans with reason when JSX is not allowed", () => {
+            mocked(mockClient.getRoom).mockReturnValue({
+                getMember: jest.fn().mockImplementation((userId) => {
+                    return { rawDisplayName: userId === "@admin:example.com" ? "Admin" : "Bad User" };
+                }),
+            } as unknown as Mocked<Room>);
+
+            expect(textForEvent(banEventWithReason(), mockClient)).toEqual("Admin banned a user: bad behaviour");
+        });
+
+        it("shows single-user bans with a spoiler on user ID", () => {
+            mocked(mockClient.getRoom).mockReturnValue({
+                getMember: jest.fn().mockReturnValue({ rawDisplayName: undefined }),
+            } as unknown as Mocked<Room>);
+
+            expect(textForEvent(banEvent(), mockClient, true)).toEqual(
+                <span>
+                    @admin:example.com banned <Spoiler>@bad_name:bad_server.co</Spoiler>
+                </span>,
+            );
+        });
+
+        it("hides user name for single-user bans when JSX is not allowed", () => {
+            mocked(mockClient.getRoom).mockReturnValue({
+                getMember: jest.fn().mockReturnValue({ rawDisplayName: undefined }),
+            } as unknown as Mocked<Room>);
+
+            expect(textForEvent(banEvent(), mockClient)).toEqual("@admin:example.com banned a user");
         });
     });
 
@@ -717,3 +805,26 @@ describe("TextForEvent", () => {
         });
     });
 });
+
+function banEvent(): MatrixEvent {
+    return new MatrixEvent({
+        type: "m.room.member",
+        sender: "@admin:example.com",
+        content: {
+            membership: KnownMembership.Ban,
+        },
+        state_key: "@bad_name:bad_server.co",
+    });
+}
+
+function banEventWithReason(): MatrixEvent {
+    return new MatrixEvent({
+        type: "m.room.member",
+        sender: "@admin:example.com",
+        content: {
+            membership: KnownMembership.Ban,
+            reason: "bad behaviour",
+        },
+        state_key: "@bad_name:bad_server.co",
+    });
+}

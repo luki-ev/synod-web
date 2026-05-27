@@ -9,10 +9,12 @@ export { RoomListView } from "./RoomListView";
 export type {
     RoomListViewProps,
     RoomListViewModel,
-    RoomListSnapshot,
+    RoomListViewSnapshot,
     RoomListViewActions,
     RoomListSection,
 } from "./RoomListView";
 export { RoomListLoadingSkeleton } from "./RoomListLoadingSkeleton";
 export { RoomListEmptyStateView } from "./RoomListEmptyStateView";
 export type { RoomListEmptyStateViewProps } from "./RoomListEmptyStateView";
+export * from "../VirtualizedRoomListView/RoomListItemWrapper/RoomListItemView";
+export * from "./RoomListToast";
