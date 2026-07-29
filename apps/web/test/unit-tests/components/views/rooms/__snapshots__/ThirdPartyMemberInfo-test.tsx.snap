@@ -19,7 +19,7 @@ exports[`<ThirdPartyMemberInfo /> should render invite 1`] = `
         </p>
       </div>
       <button
-        aria-labelledby="_r_0_"
+        aria-labelledby="react-use-id-1"
         class="_icon-button_1215g_8"
         data-kind="secondary"
         data-testid="base-card-close-button"
@@ -46,7 +46,7 @@ exports[`<ThirdPartyMemberInfo /> should render invite 1`] = `
       </button>
     </div>
     <div
-      class="mx_AutoHideScrollbar"
+      class="_scrollbar_1d5jg_8 mx_AutoHideScrollbar"
       tabindex="-1"
     >
       <div
@@ -94,7 +94,7 @@ exports[`<ThirdPartyMemberInfo /> should render invite when room in not availabl
         </p>
       </div>
       <button
-        aria-labelledby="_r_6_"
+        aria-labelledby="react-use-id-1"
         class="_icon-button_1215g_8"
         data-kind="secondary"
         data-testid="base-card-close-button"
@@ -121,7 +121,7 @@ exports[`<ThirdPartyMemberInfo /> should render invite when room in not availabl
       </button>
     </div>
     <div
-      class="mx_AutoHideScrollbar"
+      class="_scrollbar_1d5jg_8 mx_AutoHideScrollbar"
       tabindex="-1"
     >
       <div

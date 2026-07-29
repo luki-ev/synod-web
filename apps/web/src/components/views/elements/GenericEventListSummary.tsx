@@ -31,7 +31,7 @@ interface IProps {
     // An array of EventTiles to render when expanded
     "children": ReactNode[] | null;
     // Called when the event list expansion is toggled
-    onToggle?(this: void): void;
+    "onToggle"?(this: void): void;
     // The layout currently used
     "layout"?: Layout;
     "data-testid"?: string;
@@ -43,7 +43,7 @@ const GenericEventListSummary: React.FC<IProps> = ({
     threshold = 3,
     onToggle,
     startExpanded = false,
-    summaryMembers = [],
+    summaryMembers,
     summaryText,
     layout = Layout.Group,
     "data-testid": testId,
@@ -83,7 +83,7 @@ const GenericEventListSummary: React.FC<IProps> = ({
         );
     } else {
         const uniqueMembers = uniqBy(
-            summaryMembers.filter((member) => {
+            summaryMembers?.filter((member) => {
                 if (!member?.getMxcAvatarUrl) {
                     logger.error(
                         "EventListSummary given null summaryMember, termites may be afoot eating event senders",

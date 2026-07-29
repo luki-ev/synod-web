@@ -70,7 +70,7 @@ exports[`SpaceHierarchy <SpaceHierarchy /> renders 1`] = `
     role="tree"
   >
     <li
-      aria-labelledby="_r_8_"
+      aria-labelledby="react-use-id-1"
       class="mx_SpaceHierarchy_roomTileWrapper"
       role="treeitem"
     >
@@ -100,7 +100,7 @@ exports[`SpaceHierarchy <SpaceHierarchy /> renders 1`] = `
             class="mx_SpaceHierarchy_roomTile_name"
           >
             <span
-              id="_r_8_"
+              id="react-use-id-1"
             >
               Unnamed Room
             </span>
@@ -122,19 +122,19 @@ exports[`SpaceHierarchy <SpaceHierarchy /> renders 1`] = `
             Join
           </div>
           <form
-            class="_root_19upo_16"
+            class="_root_1o4d9_17"
           >
             <div
-              class="_inline-field_19upo_32"
+              class="_inline-field_1o4d9_33"
             >
               <div
-                class="_inline-field-control_19upo_44"
+                class="_inline-field-control_1o4d9_45"
               >
                 <div
                   class="_container_153f2_10"
                 >
                   <input
-                    aria-labelledby="_r_8_"
+                    aria-labelledby="react-use-id-1"
                     class="_input_153f2_18"
                     id="checkbox_MwbPDmfGtm"
                     role="presentation"
@@ -160,7 +160,7 @@ exports[`SpaceHierarchy <SpaceHierarchy /> renders 1`] = `
                 </div>
               </div>
               <div
-                class="_inline-field-body_19upo_38"
+                class="_inline-field-body_1o4d9_39"
               />
             </div>
           </form>
@@ -168,7 +168,7 @@ exports[`SpaceHierarchy <SpaceHierarchy /> renders 1`] = `
       </div>
     </li>
     <li
-      aria-labelledby="_r_c_"
+      aria-labelledby="react-use-id-2"
       class="mx_SpaceHierarchy_roomTileWrapper"
       role="treeitem"
     >
@@ -198,7 +198,7 @@ exports[`SpaceHierarchy <SpaceHierarchy /> renders 1`] = `
             class="mx_SpaceHierarchy_roomTile_name"
           >
             <span
-              id="_r_c_"
+              id="react-use-id-2"
             >
               Unnamed Room
             </span>
@@ -220,19 +220,19 @@ exports[`SpaceHierarchy <SpaceHierarchy /> renders 1`] = `
             Join
           </div>
           <form
-            class="_root_19upo_16"
+            class="_root_1o4d9_17"
           >
             <div
-              class="_inline-field_19upo_32"
+              class="_inline-field_1o4d9_33"
             >
               <div
-                class="_inline-field-control_19upo_44"
+                class="_inline-field-control_1o4d9_45"
               >
                 <div
                   class="_container_153f2_10"
                 >
                   <input
-                    aria-labelledby="_r_c_"
+                    aria-labelledby="react-use-id-2"
                     class="_input_153f2_18"
                     id="checkbox_GQvdMWe954"
                     role="presentation"
@@ -258,7 +258,7 @@ exports[`SpaceHierarchy <SpaceHierarchy /> renders 1`] = `
                 </div>
               </div>
               <div
-                class="_inline-field-body_19upo_38"
+                class="_inline-field-body_1o4d9_39"
               />
             </div>
           </form>
@@ -267,7 +267,7 @@ exports[`SpaceHierarchy <SpaceHierarchy /> renders 1`] = `
     </li>
     <li
       aria-expanded="true"
-      aria-labelledby="_r_g_"
+      aria-labelledby="react-use-id-3"
       class="mx_SpaceHierarchy_roomTileWrapper"
       role="treeitem"
     >
@@ -297,7 +297,7 @@ exports[`SpaceHierarchy <SpaceHierarchy /> renders 1`] = `
             class="mx_SpaceHierarchy_roomTile_name"
           >
             <span
-              id="_r_g_"
+              id="react-use-id-3"
             >
               Nested space
             </span>
@@ -319,19 +319,19 @@ exports[`SpaceHierarchy <SpaceHierarchy /> renders 1`] = `
             Join
           </div>
           <form
-            class="_root_19upo_16"
+            class="_root_1o4d9_17"
           >
             <div
-              class="_inline-field_19upo_32"
+              class="_inline-field_1o4d9_33"
             >
               <div
-                class="_inline-field-control_19upo_44"
+                class="_inline-field-control_1o4d9_45"
               >
                 <div
                   class="_container_153f2_10"
                 >
                   <input
-                    aria-labelledby="_r_g_"
+                    aria-labelledby="react-use-id-3"
                     class="_input_153f2_18"
                     id="checkbox_DVIAu5CsiH"
                     role="presentation"
@@ -357,7 +357,7 @@ exports[`SpaceHierarchy <SpaceHierarchy /> renders 1`] = `
                 </div>
               </div>
               <div
-                class="_inline-field-body_19upo_38"
+                class="_inline-field-body_1o4d9_39"
               />
             </div>
           </form>
@@ -383,7 +383,7 @@ exports[`SpaceHierarchy <SpaceHierarchy /> renders 1`] = `
         role="group"
       >
         <li
-          aria-labelledby="_r_k_"
+          aria-labelledby="react-use-id-4"
           class="mx_SpaceHierarchy_roomTileWrapper"
           role="treeitem"
         >
@@ -413,7 +413,7 @@ exports[`SpaceHierarchy <SpaceHierarchy /> renders 1`] = `
                 class="mx_SpaceHierarchy_roomTile_name"
               >
                 <span
-                  id="_r_k_"
+                  id="react-use-id-4"
                 >
                   Nested room
                 </span>
@@ -435,23 +435,23 @@ exports[`SpaceHierarchy <SpaceHierarchy /> renders 1`] = `
                 Join
               </div>
               <span
-                aria-labelledby="_r_l_"
+                aria-labelledby="react-use-id-5"
                 tabindex="0"
               >
                 <form
-                  class="_root_19upo_16"
+                  class="_root_1o4d9_17"
                 >
                   <div
-                    class="_inline-field_19upo_32"
+                    class="_inline-field_1o4d9_33"
                   >
                     <div
-                      class="_inline-field-control_19upo_44"
+                      class="_inline-field-control_1o4d9_45"
                     >
                       <div
                         class="_container_153f2_10"
                       >
                         <input
-                          aria-labelledby="_r_k_"
+                          aria-labelledby="react-use-id-4"
                           class="_input_153f2_18"
                           disabled=""
                           id="checkbox_RD7nyrA2oh"
@@ -478,7 +478,7 @@ exports[`SpaceHierarchy <SpaceHierarchy /> renders 1`] = `
                       </div>
                     </div>
                     <div
-                      class="_inline-field-body_19upo_38"
+                      class="_inline-field-body_1o4d9_39"
                     />
                   </div>
                 </form>
@@ -489,7 +489,7 @@ exports[`SpaceHierarchy <SpaceHierarchy /> renders 1`] = `
       </ul>
     </li>
     <li
-      aria-labelledby="_r_t_"
+      aria-labelledby="react-use-id-6"
       class="mx_SpaceHierarchy_roomTileWrapper"
       role="treeitem"
     >
@@ -519,7 +519,7 @@ exports[`SpaceHierarchy <SpaceHierarchy /> renders 1`] = `
             class="mx_SpaceHierarchy_roomTile_name"
           >
             <span
-              id="_r_t_"
+              id="react-use-id-6"
             >
               Knock room
             </span>
@@ -541,19 +541,19 @@ exports[`SpaceHierarchy <SpaceHierarchy /> renders 1`] = `
             View
           </div>
           <form
-            class="_root_19upo_16"
+            class="_root_1o4d9_17"
           >
             <div
-              class="_inline-field_19upo_32"
+              class="_inline-field_1o4d9_33"
             >
               <div
-                class="_inline-field-control_19upo_44"
+                class="_inline-field-control_1o4d9_45"
               >
                 <div
                   class="_container_153f2_10"
                 >
                   <input
-                    aria-labelledby="_r_t_"
+                    aria-labelledby="react-use-id-6"
                     class="_input_153f2_18"
                     id="checkbox_jWVJIPauy1"
                     role="presentation"
@@ -579,7 +579,7 @@ exports[`SpaceHierarchy <SpaceHierarchy /> renders 1`] = `
                 </div>
               </div>
               <div
-                class="_inline-field-body_19upo_38"
+                class="_inline-field-body_1o4d9_39"
               />
             </div>
           </form>
@@ -660,7 +660,7 @@ exports[`SpaceHierarchy <SpaceHierarchy /> should not render cycles 1`] = `
     role="tree"
   >
     <li
-      aria-labelledby="_r_3i_"
+      aria-labelledby="react-use-id-1"
       class="mx_SpaceHierarchy_roomTileWrapper"
       role="treeitem"
     >
@@ -690,7 +690,7 @@ exports[`SpaceHierarchy <SpaceHierarchy /> should not render cycles 1`] = `
             class="mx_SpaceHierarchy_roomTile_name"
           >
             <span
-              id="_r_3i_"
+              id="react-use-id-1"
             >
               Unnamed Room
             </span>
@@ -712,19 +712,19 @@ exports[`SpaceHierarchy <SpaceHierarchy /> should not render cycles 1`] = `
             Join
           </div>
           <form
-            class="_root_19upo_16"
+            class="_root_1o4d9_17"
           >
             <div
-              class="_inline-field_19upo_32"
+              class="_inline-field_1o4d9_33"
             >
               <div
-                class="_inline-field-control_19upo_44"
+                class="_inline-field-control_1o4d9_45"
               >
                 <div
                   class="_container_153f2_10"
                 >
                   <input
-                    aria-labelledby="_r_3i_"
+                    aria-labelledby="react-use-id-1"
                     class="_input_153f2_18"
                     id="checkbox_EetmBG4yVC"
                     role="presentation"
@@ -750,7 +750,7 @@ exports[`SpaceHierarchy <SpaceHierarchy /> should not render cycles 1`] = `
                 </div>
               </div>
               <div
-                class="_inline-field-body_19upo_38"
+                class="_inline-field-body_1o4d9_39"
               />
             </div>
           </form>
@@ -758,7 +758,7 @@ exports[`SpaceHierarchy <SpaceHierarchy /> should not render cycles 1`] = `
       </div>
     </li>
     <li
-      aria-labelledby="_r_3m_"
+      aria-labelledby="react-use-id-2"
       class="mx_SpaceHierarchy_roomTileWrapper"
       role="treeitem"
     >
@@ -788,7 +788,7 @@ exports[`SpaceHierarchy <SpaceHierarchy /> should not render cycles 1`] = `
             class="mx_SpaceHierarchy_roomTile_name"
           >
             <span
-              id="_r_3m_"
+              id="react-use-id-2"
             >
               Unnamed Room
             </span>
@@ -810,19 +810,19 @@ exports[`SpaceHierarchy <SpaceHierarchy /> should not render cycles 1`] = `
             Join
           </div>
           <form
-            class="_root_19upo_16"
+            class="_root_1o4d9_17"
           >
             <div
-              class="_inline-field_19upo_32"
+              class="_inline-field_1o4d9_33"
             >
               <div
-                class="_inline-field-control_19upo_44"
+                class="_inline-field-control_1o4d9_45"
               >
                 <div
                   class="_container_153f2_10"
                 >
                   <input
-                    aria-labelledby="_r_3m_"
+                    aria-labelledby="react-use-id-2"
                     class="_input_153f2_18"
                     id="checkbox_eEefiPqpMR"
                     role="presentation"
@@ -848,7 +848,7 @@ exports[`SpaceHierarchy <SpaceHierarchy /> should not render cycles 1`] = `
                 </div>
               </div>
               <div
-                class="_inline-field-body_19upo_38"
+                class="_inline-field-body_1o4d9_39"
               />
             </div>
           </form>
@@ -857,7 +857,7 @@ exports[`SpaceHierarchy <SpaceHierarchy /> should not render cycles 1`] = `
     </li>
     <li
       aria-expanded="true"
-      aria-labelledby="_r_3q_"
+      aria-labelledby="react-use-id-3"
       class="mx_SpaceHierarchy_roomTileWrapper"
       role="treeitem"
     >
@@ -887,7 +887,7 @@ exports[`SpaceHierarchy <SpaceHierarchy /> should not render cycles 1`] = `
             class="mx_SpaceHierarchy_roomTile_name"
           >
             <span
-              id="_r_3q_"
+              id="react-use-id-3"
             >
               Nested space
             </span>
@@ -909,19 +909,19 @@ exports[`SpaceHierarchy <SpaceHierarchy /> should not render cycles 1`] = `
             Join
           </div>
           <form
-            class="_root_19upo_16"
+            class="_root_1o4d9_17"
           >
             <div
-              class="_inline-field_19upo_32"
+              class="_inline-field_1o4d9_33"
             >
               <div
-                class="_inline-field-control_19upo_44"
+                class="_inline-field-control_1o4d9_45"
               >
                 <div
                   class="_container_153f2_10"
                 >
                   <input
-                    aria-labelledby="_r_3q_"
+                    aria-labelledby="react-use-id-3"
                     class="_input_153f2_18"
                     id="checkbox_MwbPDmfGtm"
                     role="presentation"
@@ -947,7 +947,7 @@ exports[`SpaceHierarchy <SpaceHierarchy /> should not render cycles 1`] = `
                 </div>
               </div>
               <div
-                class="_inline-field-body_19upo_38"
+                class="_inline-field-body_1o4d9_39"
               />
             </div>
           </form>

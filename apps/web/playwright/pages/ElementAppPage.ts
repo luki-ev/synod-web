@@ -9,7 +9,7 @@ Please see LICENSE files in the repository root for full details.
 import { type Locator, type Page, expect } from "@playwright/test";
 import { readFile } from "node:fs/promises";
 import { basename } from "node:path";
-import { rejectToastIfExists } from "@element-hq/element-web-playwright-common";
+import { rejectToast, rejectToastIfExists } from "@element-hq/element-web-playwright-common";
 
 import { Settings } from "./settings";
 import { Client } from "./client";
@@ -100,43 +100,31 @@ export class ElementAppPage {
         // otherwise we may race with page loading
         await this.page.getByTestId("room-list").waitFor();
 
-        await rejectToastIfExists(this.page, "Verify this device", { timeout: 50 });
-        const keyStorageToastRejected = await rejectToastIfExists(this.page, "Turn on key storage", { timeout: 50 });
-        if (keyStorageToastRejected) {
-            await this.page.getByRole("button", { name: "Yes, dismiss" }).click();
+        const dismissToasts = async (): Promise<void> => {
+            await rejectToastIfExists(this.page, "Verify this device", { timeout: 50 });
+            const keyStorageToastRejected = await rejectToastIfExists(this.page, "Turn on key storage", {
+                timeout: 50,
+            });
+            if (keyStorageToastRejected) {
+                await this.page.getByRole("button", { name: "Yes, dismiss" }).click();
+            }
+            await rejectToastIfExists(this.page, "Notifications", { timeout: 50 });
+        };
+
+        await dismissToasts();
+
+        // We get the room list by test-id which is a listbox and matching title=name.
+        // Retry, closing toasts each time, as otherwise it can race and the toast can appear after we try to close them
+        const roomTile = this.page.getByTestId("room-list").locator(`[title="${name}"]`).first();
+        for (let attemptsLeft = 10; attemptsLeft > 0; attemptsLeft--) {
+            try {
+                await roomTile.click({ timeout: 500 });
+                return;
+            } catch (e) {
+                if (attemptsLeft === 1) throw e;
+                await dismissToasts();
+            }
         }
-        await rejectToastIfExists(this.page, "Notifications", { timeout: 50 });
-
-        // We get the room list by test-id which is a listbox and matching title=name
-        return this.page.getByTestId("room-list").locator(`[title="${name}"]`).first().click();
-    }
-
-    /**
-     * Opens the given room on the old room list by name. The room must be visible in the
-     * room list, but the room list may be folded horizontally, and the
-     * room may contain unread messages.
-     *
-     * @param name The exact room name to find and click on/open.
-     */
-    public async viewRoomByNameOnOldRoomList(name: string): Promise<void> {
-        // We look for the room inside the room list, which is a tree called Rooms.
-        //
-        // There are 3 cases:
-        // - the room list is folded:
-        //     then the aria-label on the room tile is the name (with nothing extra)
-        // - the room list is unfolder and the room has messages:
-        //     then the aria-label contains the unread count, but the title of the
-        //     div inside the titleContainer equals the room name
-        // - the room list is unfolded and the room has no messages:
-        //     then the aria-label is the name and so is the title of a div
-        //
-        // So by matching EITHER title=name OR aria-label=name we find this exact
-        // room in all three cases.
-        return this.page
-            .getByRole("tree", { name: "Rooms" })
-            .locator(`[title="${name}"],[aria-label="${name}"]`)
-            .first()
-            .click();
     }
 
     public async viewRoomById(roomId: string): Promise<void> {
@@ -366,15 +354,15 @@ export class ElementAppPage {
         }
     }
 
-    async closeToast(title: string, button: string): Promise<void> {
-        await this.page.locator(".mx_Toast_toast", { hasText: title }).getByRole("button", { name: button }).click();
-    }
-
     /**
-     * Dismiss the "Turn on key storage" toast.
+     * Dismiss the "Turn on key storage" toast and dismiss the confirmation
+     * dialog.
+     *
+     * Note: to dismiss normal toasts, use the {@link rejectToast} function
+     * directly.
      */
     public async closeKeyStorageToast() {
-        await this.closeToast("Turn on key storage", "Dismiss");
+        await rejectToast(this.page, "Turn on key storage");
         await this.page.getByRole("button", { name: "Yes, dismiss" }).click();
     }
 

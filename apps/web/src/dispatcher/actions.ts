@@ -43,6 +43,11 @@ export enum Action {
     ViewUserDeviceSettings = "view_user_device_settings",
 
     /**
+     * Opens the QR login flow. Only valid during authentication. No additional payload information required.
+     */
+    ViewQrLogin = "view_qr_login",
+
+    /**
      * Opens the room directory. No additional payload information required.
      */
     ViewRoomDirectory = "view_room_directory",
@@ -330,7 +335,7 @@ export enum Action {
      * access token from local storage). Note that this does not necessarily mean that a login action has happened,
      * just that authentication creds have been set up.
      *
-     * No additional payload information required.
+     * Use with a OnLoggedInPayload.
      */
     OnLoggedIn = "on_logged_in",
 

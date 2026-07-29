@@ -19,7 +19,7 @@ exports[`<ExtensionsCard /> should render empty state 1`] = `
         </p>
       </div>
       <button
-        aria-labelledby="_r_0_"
+        aria-labelledby="react-use-id-1"
         class="_icon-button_1215g_8"
         data-kind="secondary"
         data-testid="base-card-close-button"
@@ -46,7 +46,7 @@ exports[`<ExtensionsCard /> should render empty state 1`] = `
       </button>
     </div>
     <div
-      class="mx_AutoHideScrollbar"
+      class="_scrollbar_1d5jg_8 mx_AutoHideScrollbar"
       tabindex="-1"
     >
       <button
@@ -120,7 +120,7 @@ exports[`<ExtensionsCard /> should render widgets 1`] = `
         </p>
       </div>
       <button
-        aria-labelledby="_r_6_"
+        aria-labelledby="react-use-id-1"
         class="_icon-button_1215g_8"
         data-kind="secondary"
         data-testid="base-card-close-button"
@@ -147,7 +147,7 @@ exports[`<ExtensionsCard /> should render widgets 1`] = `
       </button>
     </div>
     <div
-      class="mx_AutoHideScrollbar"
+      class="_scrollbar_1d5jg_8 mx_AutoHideScrollbar"
       tabindex="-1"
     >
       <button
@@ -283,6 +283,14 @@ exports[`<ExtensionsCard /> should render widgets 1`] = `
           </svg>
         </div>
       </div>
+      <a
+        class="_link_13esb_8"
+        data-kind="primary"
+        data-size="md"
+        rel="noreferrer noopener"
+      >
+        Set layout for everyone
+      </a>
     </div>
   </div>
 </DocumentFragment>
