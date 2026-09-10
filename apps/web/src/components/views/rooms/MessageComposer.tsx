@@ -324,7 +324,7 @@ export class MessageComposer extends React.Component<IProps, IState> {
         // Otherwise, wait for member loading to finish and then update the member for the avatar.
         // The members should already be loading, and loadMembersIfNeeded
         // will return the promise for the existing operation
-        this.props.room.loadMembersIfNeeded().then(() => {
+        void this.props.room.loadMembersIfNeeded().then(() => {
             const me = this.props.room.getMember(MatrixClientPeg.safeGet().getSafeUserId()) ?? undefined;
             this.setState({ me });
         });
@@ -401,6 +401,10 @@ export class MessageComposer extends React.Component<IProps, IState> {
     };
 
     private sendMessage = async (): Promise<void> => {
+        // snapshot need to be captured before the composer is cleared
+        // otherwise the send message function will think there are no URLs in
+        // message and will not attach URL bundles
+        const urlPreviewSnapshot = this.props.urlPreviewVm.getSnapshot();
         this.props.urlPreviewVm.updateWithText({ content: "", debounced: false });
         if (this.state.haveRecording && this.voiceRecordingButton.current) {
             // There shouldn't be any text message to send when a voice recording is active, so
@@ -409,7 +413,7 @@ export class MessageComposer extends React.Component<IProps, IState> {
             return;
         }
 
-        this.messageComposerInput.current?.sendMessage();
+        void this.messageComposerInput.current?.sendMessage({ urlPreviewSnapshot });
 
         if (this.state.isWysiwygLabEnabled) {
             const { relation, replyToEvent } = this.props;
@@ -424,7 +428,7 @@ export class MessageComposer extends React.Component<IProps, IState> {
                 roomContext: this.context,
                 relation,
                 replyToEvent,
-                urlPreviewSnapshot: this.props.urlPreviewVm.getSnapshot(),
+                urlPreviewSnapshot,
             });
         }
     };
@@ -536,7 +540,7 @@ export class MessageComposer extends React.Component<IProps, IState> {
     }
 
     private onRecordStartEndClick = (): void => {
-        this.voiceRecordingButton.current?.onRecordStartEndClick();
+        void this.voiceRecordingButton.current?.onRecordStartEndClick();
 
         if (this.context.narrow) {
             this.toggleButtonMenu();
@@ -758,7 +762,7 @@ export default function MessageComposerWrapper(props: Omit<IProps, "mxClient" | 
     );
 
     useEffect(() => {
-        void urlPreviewVm.updateUrlPreviewVisible(showUrlPreview);
+        urlPreviewVm.updateUrlPreviewVisible(showUrlPreview);
     }, [urlPreviewVm, showUrlPreview]);
 
     return <MessageComposerWithMatrixClient {...props} urlPreviewVm={urlPreviewVm} />;

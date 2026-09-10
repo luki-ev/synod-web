@@ -35,12 +35,14 @@ enum Keys {
     ARROW_DOWN = 40,
 }
 
+/* oxlint-disable typescript/prefer-literal-enum-member */
 enum DragDirection {
     LEFT = Keys.ARROW_LEFT,
     UP = Keys.ARROW_UP,
     RIGHT = Keys.ARROW_RIGHT,
     DOWN = Keys.ARROW_DOWN,
 }
+/* oxlint-enable typescript/prefer-literal-enum-member */
 
 // taken from https://github.com/hello-pangea/dnd/blob/main/test/unit/integration/util/controls.ts#L20
 const createTransitionEndEvent = (): Event => {
@@ -53,7 +55,6 @@ const createTransitionEndEvent = (): Event => {
     // TransitionEvent constructor does not exist.
     // This is needed because of the following check
     //   https://github.com/atlassian/react-beautiful-dnd/blob/master/src/view/draggable/draggable.jsx#L130
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (event as any).propertyName = "transform";
 
     return event;
@@ -87,8 +88,7 @@ const drop = async (element: HTMLElement) => {
 };
 
 jest.mock("../../../../../src/stores/spaces/SpaceStore", () => {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
-    const EventEmitter = require("events");
+    const EventEmitter = jest.requireActual("events");
     class MockSpaceStore extends EventEmitter {
         invitedSpaces: SpaceKey[] = [];
         enabledMetaSpaces: MetaSpace[] = [];

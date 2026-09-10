@@ -67,6 +67,8 @@ import { EMOJI_REGEX } from "../../../HtmlUtils";
 import { attachMentions, attachRelation, attachUrlPreviews } from "../../../utils/messages";
 import { type RoomUploadViewModel, useRoomUploadViewModel } from "../../../viewmodels/room/RoomUploadViewModel";
 import { type MessageComposerUrlPreviewViewModel } from "../../../viewmodels/composer/MessageComposerUrlPreviewViewModel";
+import { linksIn } from "../../../utils/UrlUtils";
+import { type MessageComposerUrlPreviewSnapshot } from "@element-hq/web-shared-components";
 
 // The prefix used when persisting editor drafts to localstorage.
 export const EDITOR_STATE_STORAGE_PREFIX = "mx_cider_state_";
@@ -141,6 +143,10 @@ interface ISendMessageComposerProps extends MatrixClientProps {
     urlPreviewVm: MessageComposerUrlPreviewViewModel;
 }
 
+interface ISendMessageActionProps {
+    urlPreviewSnapshot: MessageComposerUrlPreviewSnapshot;
+}
+
 export class SendMessageComposer extends React.Component<ISendMessageComposerProps> {
     public static contextType = RoomContext;
     declare public context: React.ContextType<typeof RoomContext>;
@@ -197,10 +203,12 @@ export class SendMessageComposer extends React.Component<ISendMessageComposerPro
         const replyingToThread = this.props.relation?.key === THREAD_RELATION_TYPE.name;
         const action = getKeyBindingsManager().getMessageComposerAction(event);
         switch (action) {
-            case KeyBindingAction.SendMessage:
-                this.sendMessage();
+            case KeyBindingAction.SendMessage: {
+                const urlPreviewSnapshot = this.props.urlPreviewVm.getSnapshot();
+                void this.sendMessage({ urlPreviewSnapshot });
                 event.preventDefault();
                 break;
+            }
             case KeyBindingAction.SelectPrevSendHistory:
             case KeyBindingAction.SelectNextSendHistory: {
                 // Try select composer history
@@ -316,7 +324,7 @@ export class SendMessageComposer extends React.Component<ISendMessageComposerPro
                     shouldReact = !myReactionKeys.includes(reaction);
                 }
                 if (shouldReact) {
-                    MatrixClientPeg.safeGet().sendEvent(lastMessage.getRoomId()!, EventType.Reaction, {
+                    void MatrixClientPeg.safeGet().sendEvent(lastMessage.getRoomId()!, EventType.Reaction, {
                         "m.relates_to": {
                             rel_type: RelationType.Annotation,
                             event_id: lastMessage.getId()!,
@@ -330,7 +338,10 @@ export class SendMessageComposer extends React.Component<ISendMessageComposerPro
         }
     }
 
-    public async sendMessage(): Promise<void> {
+    /*
+     * The URL preview VM snapshot before the composer is cleared
+     */
+    public async sendMessage({ urlPreviewSnapshot }: ISendMessageActionProps): Promise<void> {
         const model = this.model;
 
         if (model.isEmpty) {
@@ -441,9 +452,10 @@ export class SendMessageComposer extends React.Component<ISendMessageComposerPro
             // don't bother sending an empty message
             if (!content.body.trim()) return;
 
+            attachUrlPreviews(urlPreviewSnapshot, content, linksIn(this.model.contentPlainText).size !== 0);
+
             // clear composer first so the user doesn't actually see the delay of attach URL preview image files
             clearComposerAndPushHistory();
-            attachUrlPreviews(this.props.urlPreviewVm.getSnapshot(), content);
 
             if (SettingsStore.getValue("Performance.addSendMessageTimingMetadata")) {
                 decorateStartSendingTime(content);
@@ -478,7 +490,7 @@ export class SendMessageComposer extends React.Component<ISendMessageComposerPro
                 }
             });
             if (SettingsStore.getValue("Performance.addSendMessageTimingMetadata")) {
-                prom.then((resp) => {
+                void prom.then((resp) => {
                     sendRoundTripMetric(this.props.mxClient, roomId, resp.event_id);
                 });
             }
@@ -579,7 +591,7 @@ export class SendMessageComposer extends React.Component<ISendMessageComposerPro
         // We check text/rtf instead of text/plain as when copy+pasting a file from Finder or Gnome Image Viewer
         // it puts the filename in as text/plain which we want to ignore.
         if (data.files.length && !data.types.includes("text/rtf")) {
-            this.props.uploadVm.initiateViaDataTransfer(data);
+            void this.props.uploadVm.initiateViaDataTransfer(data);
             return true; // to skip internal onPaste handler
         }
 
@@ -600,7 +612,7 @@ export class SendMessageComposer extends React.Component<ISendMessageComposerPro
                 // Fallback to internal onPaste handler
                 return false;
             }
-            const imgSrc = imgDoc!.querySelector("img")!.src;
+            const imgSrc = imgDoc.querySelector("img")!.src;
 
             fetch(imgSrc).then(
                 (response) => {
@@ -612,7 +624,7 @@ export class SendMessageComposer extends React.Component<ISendMessageComposerPro
                             const parts = response.url.split("/");
                             const filename = parts[parts.length - 1];
                             const file = new File([imgBlob], filename + "." + ext, { type: safetype });
-                            this.props.uploadVm.initiateViaInputFiles([file]);
+                            void this.props.uploadVm.initiateViaInputFiles([file]);
                         },
                         (error) => {
                             console.log(error);

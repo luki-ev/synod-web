@@ -127,7 +127,7 @@ export default class NotificationsSettingsTab extends React.Component<IProps, IS
     private clearSound = (e: ButtonEvent): void => {
         e.stopPropagation();
         e.preventDefault();
-        SettingsStore.setValue("notificationSound", this.props.roomId, SettingLevel.ROOM_ACCOUNT, null);
+        void SettingsStore.setValue("notificationSound", this.props.roomId, SettingLevel.ROOM_ACCOUNT, null);
 
         this.setState({
             currentSound: "default",
@@ -231,7 +231,7 @@ export default class NotificationsSettingsTab extends React.Component<IProps, IS
                                     value: RoomNotifState.Mute,
                                     label: (
                                         <>
-                                            {_t("common|off")}
+                                            {_t("common|mute")}
                                             <div className="mx_NotificationSettingsTab_microCopy">
                                                 {_t("notifications|mute_description")}
                                             </div>

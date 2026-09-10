@@ -43,7 +43,7 @@ import { type Call, CallEvent } from "../../models/Call";
 import RoomListStoreV3 from "../../stores/room-list-v3/RoomListStoreV3";
 import { getCustomSectionData, isDefaultSectionTag } from "../../stores/room-list-v3/section";
 import { _t } from "../../languageHandler";
-import { fetchUserStatus, validateUserStatus } from "../../utils/userStatus";
+import { fetchUserStatus } from "../../utils/userStatus";
 
 /**
  * View section type without `isSelected` field
@@ -290,9 +290,11 @@ export class RoomListItemViewModel
     /**
      * Handler for profile updates received via sync, to keep the DM user's status up to date.
      */
-    private onUserProfileUpdate: ClientEventHandlerMap[ClientEvent.UserProfileUpdate] = (userId, profile) => {
+    private onUserProfileUpdate: ClientEventHandlerMap[ClientEvent.UserProfileUpdate] = async (userId) => {
         if (userId !== this.dmUserId || !SettingsStore.getValue("feature_user_status")) return;
-        this.snapshot.merge({ userStatus: validateUserStatus(profile?.["org.matrix.msc4426.status"]) });
+        this.snapshot.merge({
+            userStatus: await fetchUserStatus(this.props.client, this.dmUserId),
+        });
     };
 
     /**
@@ -488,13 +490,10 @@ export class RoomListItemViewModel
     };
 
     public onCreateSection = async (): Promise<void> => {
-        const newTag = await RoomListStoreV3.instance.createSection();
+        // The room the menu was opened on is preselected in the dialog, which takes care of
+        // adding it to the new section.
+        await RoomListStoreV3.instance.createSection(this.props.room.roomId);
         PosthogTrackers.trackSectionCreation("RoomListItemOverflowMenu");
-
-        // Add the room to the section
-        if (newTag) {
-            tagRoom(this.props.room, newTag);
-        }
     };
 
     public onToggleSection = (tag: string): void => {
